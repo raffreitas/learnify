@@ -17,6 +17,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Learnify.Users.Infrastructu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Learnify.Core", "src\core\Learnify.Core\Learnify.Core.csproj", "{F9A806B8-03F8-4442-8E6B-9C86B49ABF23}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Courses", "Courses", "{70F1A507-16A8-45E7-8A7C-F3C3F48360DA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Learnify.Courses.Application", "src\modules\courses\Learnify.Courses.Application\Learnify.Courses.Application.csproj", "{AFA75D8F-1595-4A2C-BEA5-5B47D53D42E6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Learnify.Courses.Domain", "src\modules\courses\Learnify.Courses.Domain\Learnify.Courses.Domain.csproj", "{EA761DCC-A7CC-6022-D3FE-761E9989F04F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Learnify.Courses.Infrastructure", "src\modules\courses\Learnify.Courses.Infrastructure\Learnify.Courses.Infrastructure.csproj", "{36D9D779-9EBF-4380-BC1F-21A093117685}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Learnify.Courses.Api", "src\modules\courses\Learnify.Courses.Api\Learnify.Courses.Api.csproj", "{C91478AE-91E7-40D9-8ECA-30F1C04F8015}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +53,22 @@ Global
 		{F9A806B8-03F8-4442-8E6B-9C86B49ABF23}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F9A806B8-03F8-4442-8E6B-9C86B49ABF23}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F9A806B8-03F8-4442-8E6B-9C86B49ABF23}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFA75D8F-1595-4A2C-BEA5-5B47D53D42E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFA75D8F-1595-4A2C-BEA5-5B47D53D42E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFA75D8F-1595-4A2C-BEA5-5B47D53D42E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFA75D8F-1595-4A2C-BEA5-5B47D53D42E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA761DCC-A7CC-6022-D3FE-761E9989F04F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA761DCC-A7CC-6022-D3FE-761E9989F04F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA761DCC-A7CC-6022-D3FE-761E9989F04F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA761DCC-A7CC-6022-D3FE-761E9989F04F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36D9D779-9EBF-4380-BC1F-21A093117685}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36D9D779-9EBF-4380-BC1F-21A093117685}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36D9D779-9EBF-4380-BC1F-21A093117685}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36D9D779-9EBF-4380-BC1F-21A093117685}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C91478AE-91E7-40D9-8ECA-30F1C04F8015}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C91478AE-91E7-40D9-8ECA-30F1C04F8015}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C91478AE-91E7-40D9-8ECA-30F1C04F8015}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C91478AE-91E7-40D9-8ECA-30F1C04F8015}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -53,6 +79,10 @@ Global
 		{30E52110-951B-4BD1-9F45-4750A8011CC4} = {BA539183-1CFF-4282-AB7C-25ECB66F0913}
 		{E7DBBABC-7F34-4B63-92CF-A89C25F585B7} = {BA539183-1CFF-4282-AB7C-25ECB66F0913}
 		{F9A806B8-03F8-4442-8E6B-9C86B49ABF23} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{AFA75D8F-1595-4A2C-BEA5-5B47D53D42E6} = {70F1A507-16A8-45E7-8A7C-F3C3F48360DA}
+		{EA761DCC-A7CC-6022-D3FE-761E9989F04F} = {70F1A507-16A8-45E7-8A7C-F3C3F48360DA}
+		{36D9D779-9EBF-4380-BC1F-21A093117685} = {70F1A507-16A8-45E7-8A7C-F3C3F48360DA}
+		{C91478AE-91E7-40D9-8ECA-30F1C04F8015} = {70F1A507-16A8-45E7-8A7C-F3C3F48360DA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D6F05F5C-311A-4149-87AE-AD78D1E59095}
