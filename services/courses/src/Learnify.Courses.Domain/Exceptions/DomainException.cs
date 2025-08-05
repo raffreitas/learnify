@@ -19,6 +19,7 @@ public class DomainException(string message) : Exception(message)
         if (value < 0)
             throw new DomainException($"{paramName} cannot be negative.");
     }
+
     public static void ThrowIfNegative(decimal value, string paramName)
     {
         if (value < 0)

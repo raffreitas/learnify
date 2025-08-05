@@ -1,4 +1,5 @@
 ﻿namespace Learnify.Courses.Domain.SeedWork;
+
 public interface IRepository;
 
 public interface IGenericRepository<T> : IRepository where T : AggregateRoot

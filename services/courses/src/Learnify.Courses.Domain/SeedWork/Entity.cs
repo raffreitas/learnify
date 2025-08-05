@@ -2,14 +2,7 @@
 
 public abstract class Entity
 {
-    public Guid Id { get; protected set; }
-    public DateTimeOffset CreatedAt { get; private set; }
-    public DateTimeOffset UpdatedAt { get; private set; }
-
-    protected Entity()
-    {
-        Id = Guid.NewGuid();
-        CreatedAt = DateTimeOffset.UtcNow;
-        UpdatedAt = DateTimeOffset.UtcNow;
-    }
+    public Guid Id { get; protected set; } = Guid.NewGuid();
+    public DateTimeOffset CreatedAt { get; private set; } = DateTimeOffset.UtcNow;
+    public DateTimeOffset UpdatedAt { get; protected set; } = DateTimeOffset.UtcNow;
 }

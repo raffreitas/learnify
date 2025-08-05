@@ -6,14 +6,10 @@ using Learnify.Courses.Domain.Aggregates.Courses.Models;
 using Learnify.Courses.Domain.Aggregates.Courses.ValueObjects;
 
 namespace Learnify.Courses.UnitTests.Domain.Aggregates.Courses;
+
 public class CourseTestFixture
 {
-    public Faker Faker { get; }
-
-    public CourseTestFixture()
-    {
-        Faker = new Faker();
-    }
+    public Faker Faker { get; } = new();
 
     public Course CreateValidCourse()
     {
