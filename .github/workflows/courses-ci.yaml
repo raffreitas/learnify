@@ -44,5 +44,5 @@ jobs:
         working-directory: services/courses
 
       - name: Test
-        run: dotnet test --no-build --verbosity normal
+        run: dotnet test --no-build --configuration Release --verbosity normal
         working-directory: services/courses
