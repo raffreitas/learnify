@@ -1,0 +1,48 @@
+name: Courses Workflow
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+    paths:
+      - 'services/courses/**'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'services/courses/**'
+
+env:
+  DOTNET_VERSION: '9.0.x'
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Cache NuGet packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('services/courses/**/*.csproj') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Restore dependencies
+        run: dotnet restore
+        working-directory: services/courses
+
+      - name: Build
+        run: dotnet build --no-restore --configuration Release --verbosity minimal
+        working-directory: services/courses
+
+      - name: Test
+        run: dotnet test --no-build --verbosity normal
+        working-directory: services/courses
