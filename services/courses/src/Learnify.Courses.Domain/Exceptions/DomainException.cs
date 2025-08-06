@@ -2,6 +2,12 @@
 
 public class DomainException(string message) : Exception(message)
 {
+    public static void ThrowIfEmpty(Guid value, string paramName)
+    {
+        if (value == Guid.Empty)
+            throw new DomainException($"{paramName} cannot be an empty GUID.");
+    }
+
     public static void ThrowIfNullOrEmpty(string? value, string paramName)
     {
         if (string.IsNullOrEmpty(value))

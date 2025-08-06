@@ -9,8 +9,8 @@ public sealed class Module : Entity
     private readonly List<Lesson> _lessons = [];
 
     public Guid CourseId { get; private set; }
-    public string Title { get; set; }
-    public int Order { get; set; }
+    public string Title { get; private set; }
+    public int Order { get; private set; }
     public IReadOnlyCollection<Lesson> Lessons => _lessons.AsReadOnly();
 
     private Module(Guid courseId, string title, int order)

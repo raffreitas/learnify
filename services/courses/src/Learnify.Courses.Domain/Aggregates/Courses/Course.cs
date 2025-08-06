@@ -11,7 +11,7 @@ namespace Learnify.Courses.Domain.Aggregates.Courses;
 public sealed class Course : AggregateRoot
 {
     private readonly List<Module> _modules = [];
-    private readonly List<Guid> _categories = [];
+    private readonly List<CategoryId> _categories = [];
 
     public Guid InstructorId { get; private set; }
     public string Title { get; private set; }
@@ -22,17 +22,17 @@ public sealed class Course : AggregateRoot
     public CourseStatus Status { get; private set; }
     public DifficultyLevel DifficultyLevel { get; private set; }
     public IReadOnlyCollection<Module> Modules => _modules.AsReadOnly();
-    public IReadOnlyCollection<Guid> Categories => _categories.AsReadOnly();
+    public IReadOnlyCollection<CategoryId> Categories => _categories.AsReadOnly();
 
     private Course(
-         Guid instructorId,
-         string title,
-         string description,
-         string imageUrl,
-         Price price,
-         string language,
-         DifficultyLevel difficultyLevel,
-         CourseStatus status
+        Guid instructorId,
+        string title,
+        string description,
+        string imageUrl,
+        Price price,
+        string language,
+        DifficultyLevel difficultyLevel,
+        CourseStatus status
     )
     {
         InstructorId = instructorId;
@@ -85,7 +85,8 @@ public sealed class Course : AggregateRoot
         return course;
     }
 
-    public void UpdateCourseInfo(string description, string imageUrl, Price price, string language, DifficultyLevel difficultyLevel)
+    public void UpdateCourseInfo(string description, string imageUrl, Price price, string language,
+        DifficultyLevel difficultyLevel)
     {
         if (Status is CourseStatus.InReview or CourseStatus.Deleted)
             throw new DomainException("Unable to update information for this course");
@@ -115,14 +116,14 @@ public sealed class Course : AggregateRoot
             throw new DomainException("Unable to add lesson for this course.");
 
         var module = _modules.FirstOrDefault(m => m.Id == moduleId)
-            ?? throw new DomainException("Module not found.");
+                     ?? throw new DomainException("Module not found.");
 
         module.AddLesson(info);
 
         SentToReviewIfPublished();
     }
 
-    public void AddCategory(Guid category)
+    public void AddCategory(CategoryId category)
     {
         if (Status is CourseStatus.InReview or CourseStatus.Deleted)
             throw new DomainException("Unable to add category for this course.");

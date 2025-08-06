@@ -51,7 +51,7 @@ public class CourseTestFixture
         var course = CreateValidCourseWithModule();
         var moduleId = course.Modules.First().Id;
         course.AddLessonToModule(moduleId, CreateLessonInfo());
-        course.AddCategory(Guid.NewGuid());
+        course.AddCategory(CategoryId.Create(Guid.NewGuid()));
         return course;
     }
 
