@@ -1,0 +1,10 @@
+using Learnify.Courses.Application.Shared.Errors;
+
+namespace Learnify.Courses.Application.Courses.Errors;
+
+public static class CoursesErrors
+{
+    public static NotFoundError CourseNotFound(Guid id) => new($"Course with id '{id}' not found.");
+    public static DomainValidationError CourseCannotBeUpdated(string message) => new(message);
+    public static ConflictError CourseAlreadyExists(string message) => new(message);
+}

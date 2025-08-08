@@ -3,10 +3,9 @@ using FluentValidation.Results;
 
 namespace Learnify.Courses.Application.Courses.UseCases.CreateCourse;
 
-public readonly record struct CreateCourseRequest
+public sealed record CreateCourseRequest
 {
-    public string Title { get; init; }
-
+    public required string Title { get; init; }
     public ValidationResult Validate() => new CreateCourseRequestValidator().Validate(this);
 };
 

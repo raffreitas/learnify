@@ -13,6 +13,14 @@ public sealed class Lesson : Entity
     public bool IsPublic { get; private set; }
     public Guid ModuleId { get; private set; }
 
+    #region EF Constructor
+
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
+    private Lesson() { }
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
+
+    #endregion
+
     private Lesson(Guid moduleId, string title, string description, string videoUrl, int order, bool isPublic)
     {
         Title = title;

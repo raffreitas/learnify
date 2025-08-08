@@ -24,6 +24,19 @@ public sealed class Course : AggregateRoot
     public IReadOnlyCollection<Module> Modules => _modules.AsReadOnly();
     public IReadOnlyCollection<CategoryId> Categories => _categories.AsReadOnly();
 
+    public bool IsDraft => Status == CourseStatus.Draft;
+    public bool IsPublished => Status == CourseStatus.Published;
+    public bool IsInReview => Status == CourseStatus.InReview;
+    public bool IsDeleted => Status == CourseStatus.Deleted;
+
+    #region EF Constructor
+
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
+    private Course() { }
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
+
+    #endregion
+
     private Course(
         Guid instructorId,
         string title,
@@ -72,7 +85,7 @@ public sealed class Course : AggregateRoot
             title,
             string.Empty,
             string.Empty,
-            default,
+            Price.Create(0),
             string.Empty,
             DifficultyLevel.Beginner,
             CourseStatus.Draft
@@ -85,17 +98,22 @@ public sealed class Course : AggregateRoot
         return course;
     }
 
-    public void UpdateCourseInfo(string description, string imageUrl, Price price, string language,
-        DifficultyLevel difficultyLevel)
+    public void UpdateCourseInfo(
+        string? description,
+        string? imageUrl,
+        Price? price,
+        string? language,
+        DifficultyLevel? difficultyLevel
+    )
     {
         if (Status is CourseStatus.InReview or CourseStatus.Deleted)
             throw new DomainException("Unable to update information for this course");
 
-        Description = description;
-        ImageUrl = imageUrl;
-        Price = price;
-        Language = language;
-        DifficultyLevel = difficultyLevel;
+        Description = description ?? Description;
+        ImageUrl = imageUrl ?? ImageUrl;
+        Price = price ?? Price;
+        Language = language ?? Language;
+        DifficultyLevel = difficultyLevel ?? DifficultyLevel;
     }
 
     public void AddModule(string title, int order)
@@ -121,6 +139,14 @@ public sealed class Course : AggregateRoot
         module.AddLesson(info);
 
         SentToReviewIfPublished();
+    }
+
+    public void ClearCategories()
+    {
+        if (Status is CourseStatus.InReview or CourseStatus.Deleted)
+            throw new DomainException("Unable to update categories for this course.");
+
+        _categories.Clear();
     }
 
     public void AddCategory(CategoryId category)

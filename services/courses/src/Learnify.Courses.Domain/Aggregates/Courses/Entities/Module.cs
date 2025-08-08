@@ -13,6 +13,14 @@ public sealed class Module : Entity
     public int Order { get; private set; }
     public IReadOnlyCollection<Lesson> Lessons => _lessons.AsReadOnly();
 
+    #region EF Constructor
+
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
+    private Module() { }
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
+
+    #endregion
+    
     private Module(Guid courseId, string title, int order)
     {
         CourseId = courseId;

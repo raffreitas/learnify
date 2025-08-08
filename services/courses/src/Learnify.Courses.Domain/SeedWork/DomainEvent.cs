@@ -2,5 +2,5 @@
 
 public abstract class DomainEvent
 {
-    public DateTimeOffset OccurredOn { get; set; } = DateTimeOffset.UtcNow;
+    public DateTimeOffset OccurredOn { get; } = DateTimeOffset.UtcNow;
 }

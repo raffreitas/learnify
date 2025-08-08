@@ -5,10 +5,9 @@ namespace Learnify.Courses.Domain.Aggregates.Categories;
 
 public sealed class Category : AggregateRoot
 {
-    private Category(string name)
-        => Name = name;
-
     public string Name { get; private set; }
+
+    private Category(string name) => Name = name;
 
     public static Category Create(string name)
     {

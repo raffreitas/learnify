@@ -1,6 +1,11 @@
+using FluentResults;
+
 namespace Learnify.Courses.Application.Courses.UseCases.CreateCourse;
 
 public interface ICreateCourseUseCase
 {
-    Task<CreateCourseResponse> ExecuteAsync(CreateCourseRequest request, CancellationToken cancellationToken = default);
+    Task<Result<CreateCourseResponse>> ExecuteAsync(
+        CreateCourseRequest request,
+        CancellationToken cancellationToken = default
+    );
 }

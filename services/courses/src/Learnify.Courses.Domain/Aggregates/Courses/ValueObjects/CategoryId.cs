@@ -3,7 +3,7 @@ using Learnify.Courses.Domain.SeedWork;
 
 namespace Learnify.Courses.Domain.Aggregates.Courses.ValueObjects;
 
-public readonly record struct CategoryId : IValueObject
+public sealed record CategoryId : IValueObject
 {
     public Guid Value { get; private init; }
 
