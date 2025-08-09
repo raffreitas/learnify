@@ -76,5 +76,9 @@ public class CourseConfiguration : IEntityTypeConfiguration<Course>
                 .HasColumnName("category_id")
                 .IsRequired();
         });
+
+        builder.Property(x => x.IsRevised)
+            .IsRequired()
+            .HasDefaultValue(false);
     }
 }

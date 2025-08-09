@@ -1,13 +1,14 @@
 ﻿using Bogus;
 
 using Learnify.Courses.Domain.Aggregates.Courses;
+using Learnify.Courses.Domain.Aggregates.Courses.Entities;
 using Learnify.Courses.Domain.Aggregates.Courses.Enums;
 using Learnify.Courses.Domain.Aggregates.Courses.Models;
 using Learnify.Courses.Domain.Aggregates.Courses.ValueObjects;
 
 namespace Learnify.Courses.UnitTests.Domain.Aggregates.Courses;
 
-public class CourseTestFixture
+public sealed class CourseTestFixture
 {
     public Faker Faker { get; } = new();
 
@@ -42,7 +43,12 @@ public class CourseTestFixture
     public Course CreateValidCourseWithModule()
     {
         var course = CreateValidCourse();
-        course.AddModule(Faker.Commerce.ProductName(), 1);
+        var module = Module.Create(
+            course.Id,
+            Faker.Commerce.ProductName(),
+            Faker.Random.Int(1, 10)
+        );
+        course.AddModule(module);
         return course;
     }
 

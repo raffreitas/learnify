@@ -196,4 +196,12 @@ public sealed class Course : AggregateRoot
         if (Status == CourseStatus.Published)
             RequestReview();
     }
+
+    public void ApproveForPublish()
+    {
+        if (!IsInReview)
+            throw new DomainException("Course cannot be approved for publishing.");
+
+        IsRevised = true;
+    }
 }

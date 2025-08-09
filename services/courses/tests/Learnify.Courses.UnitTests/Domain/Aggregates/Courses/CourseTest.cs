@@ -1,4 +1,5 @@
 ﻿using Learnify.Courses.Domain.Aggregates.Courses;
+using Learnify.Courses.Domain.Aggregates.Courses.Entities;
 using Learnify.Courses.Domain.Aggregates.Courses.Enums;
 using Learnify.Courses.Domain.Aggregates.Courses.ValueObjects;
 using Learnify.Courses.Domain.Exceptions;
@@ -140,7 +141,7 @@ public sealed class CourseTest(CourseTestFixture fixture) : IClassFixture<Course
         var newDescription = fixture.Faker.Commerce.ProductDescription();
         var newImageUrl = fixture.Faker.Internet.Url();
         var newPrice = Price.Create(fixture.Faker.Random.Decimal(10, 100));
-        var newLanguage = fixture.Faker.Random.ArrayElement(new[] { "French", "German", "Italian" });
+        var newLanguage = fixture.Faker.Random.ArrayElement(["French", "German", "Italian"]);
         var newDifficultyLevel = DifficultyLevel.Advanced;
 
         // Act & Assert
@@ -155,17 +156,18 @@ public sealed class CourseTest(CourseTestFixture fixture) : IClassFixture<Course
         // Arrange
         var course = fixture.CreateValidCourse();
         var moduleTitle = fixture.Faker.Commerce.ProductName();
-        var moduleOrder = 1;
+        const int moduleOrder = 1;
+        var module = Module.Create(course.Id, moduleTitle, moduleOrder);
 
         // Act
-        course.AddModule(moduleTitle, moduleOrder);
+        course.AddModule(module);
 
         // Assert
         course.Modules.Count.ShouldBe(1);
-        var module = course.Modules.First();
-        module.Title.ShouldBe(moduleTitle);
-        module.Order.ShouldBe(moduleOrder);
-        module.CourseId.ShouldBe(course.Id);
+        var addedModule = course.Modules.First();
+        addedModule.Title.ShouldBe(moduleTitle);
+        addedModule.Order.ShouldBe(moduleOrder);
+        addedModule.CourseId.ShouldBe(course.Id);
     }
 
     [Theory(DisplayName = nameof(AddModule_Should_Throw_Exception_For_Restricted_Status))]
@@ -176,11 +178,12 @@ public sealed class CourseTest(CourseTestFixture fixture) : IClassFixture<Course
         // Arrange
         var course = fixture.CreateCourseWithStatus(status);
         var moduleTitle = fixture.Faker.Commerce.ProductName();
-        var moduleOrder = 1;
+        const int moduleOrder = 1;
+        var module = Module.Create(course.Id, moduleTitle, moduleOrder);
 
         // Act & Assert
         Should.Throw<DomainException>(() =>
-            course.AddModule(moduleTitle, moduleOrder)
+            course.AddModule(module)
         ).Message.ShouldBe("Unable to add module for this course");
     }
 
@@ -250,7 +253,8 @@ public sealed class CourseTest(CourseTestFixture fixture) : IClassFixture<Course
     {
         // Arrange
         var course = fixture.CreateValidCourseWithModuleAndCategoryAndLesson();
-
+        course.RequestReview();
+        course.ApproveForPublish();
         // Act
         course.Publish();
 
