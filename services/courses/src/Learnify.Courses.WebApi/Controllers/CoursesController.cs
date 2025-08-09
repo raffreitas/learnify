@@ -3,12 +3,12 @@ using Learnify.Courses.Application.Courses.UseCases.CreateModule;
 using Learnify.Courses.Application.Courses.UseCases.CreateLesson;
 using Learnify.Courses.Application.Courses.UseCases.GetCourseById;
 using Learnify.Courses.Application.Courses.UseCases.PublishCourse;
-using Learnify.Courses.Application.Courses.UseCases.SubmitCourseForReview;
 using Learnify.Courses.Application.Courses.UseCases.UpdateCourse;
 using Learnify.Courses.Application.Courses.UseCases.UpdateLesson;
 using Learnify.Courses.Application.Courses.UseCases.UpdateModule;
 using Learnify.Courses.Application.Courses.UseCases.ReorderModules;
 using Learnify.Courses.Application.Courses.UseCases.ReorderLessons;
+using Learnify.Courses.Application.Courses.UseCases.RequestCourseReview;
 using Learnify.Courses.Application.Courses.UseCases.UploadCourseImage;
 using Learnify.Courses.WebApi.Models;
 
@@ -80,18 +80,18 @@ public class CoursesController : ControllerBase
         return result.IsSuccess ? NoContent() : HandleProblem(result);
     }
 
-    [HttpPatch("{id:guid}/submit-for-review")]
+    [HttpPatch("{id:guid}/request-review")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
-    public async Task<IActionResult> SubmitCourseForReview(
+    public async Task<IActionResult> RequestCourseReview(
         [FromRoute] Guid id,
-        [FromServices] ISubmitCourseForReviewUseCase useCase,
+        [FromServices] IRequestCourseReviewUseCase useCase,
         CancellationToken cancellationToken
     )
     {
-        var result = await useCase.ExecuteAsync(new SubmitCourseForReviewRequest { CourseId = id }, cancellationToken);
+        var result = await useCase.ExecuteAsync(new RequestCourseReviewRequest { CourseId = id }, cancellationToken);
         return result.IsSuccess ? NoContent() : HandleProblem(result);
     }
 

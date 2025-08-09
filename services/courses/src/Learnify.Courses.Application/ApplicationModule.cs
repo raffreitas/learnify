@@ -4,12 +4,12 @@ using Learnify.Courses.Application.Courses.UseCases.CreateModule;
 using Learnify.Courses.Application.Courses.UseCases.CreateLesson;
 using Learnify.Courses.Application.Courses.UseCases.GetCourseById;
 using Learnify.Courses.Application.Courses.UseCases.PublishCourse;
-using Learnify.Courses.Application.Courses.UseCases.SubmitCourseForReview;
 using Learnify.Courses.Application.Courses.UseCases.UpdateCourse;
 using Learnify.Courses.Application.Courses.UseCases.UpdateLesson;
 using Learnify.Courses.Application.Courses.UseCases.UpdateModule;
 using Learnify.Courses.Application.Courses.UseCases.ReorderModules;
 using Learnify.Courses.Application.Courses.UseCases.ReorderLessons;
+using Learnify.Courses.Application.Courses.UseCases.RequestCourseReview;
 using Learnify.Courses.Application.Courses.UseCases.UploadCourseImage;
 
 using Microsoft.Extensions.DependencyInjection;
@@ -35,7 +35,7 @@ public static class ApplicationModule
         services.AddScoped<ICreateCourseUseCase, CreateCourseUseCase>();
         services.AddScoped<IUpdateCourseUseCase, UpdateCourseUseCase>();
         services.AddScoped<IPublishCourseUseCase, PublishCourseUseCase>();
-        services.AddScoped<ISubmitCourseForReviewUseCase, SubmitCourseForReviewUseCase>();
+        services.AddScoped<IRequestCourseReviewUseCase, RequestCourseReviewUseCase>();
         services.AddScoped<IUploadCourseImageUseCase, UploadCourseImageUseCase>();
         services.AddScoped<IGetCourseByIdUseCase, GetCourseByIdUseCase>();
 

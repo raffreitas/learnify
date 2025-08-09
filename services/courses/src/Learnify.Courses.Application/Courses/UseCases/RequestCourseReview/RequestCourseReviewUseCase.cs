@@ -5,12 +5,12 @@ using Learnify.Courses.Application.Courses.Errors;
 using Learnify.Courses.Application.Shared.Extensions;
 using Learnify.Courses.Domain.Aggregates.Courses.Repositories;
 
-namespace Learnify.Courses.Application.Courses.UseCases.SubmitCourseForReview;
+namespace Learnify.Courses.Application.Courses.UseCases.RequestCourseReview;
 
-internal sealed class SubmitCourseForReviewUseCase(ICourseRepository courseRepository, IUnitOfWork unitOfWork)
-    : ISubmitCourseForReviewUseCase
+internal sealed class RequestCourseReviewUseCase(ICourseRepository courseRepository, IUnitOfWork unitOfWork)
+    : IRequestCourseReviewUseCase
 {
-    public async Task<Result> ExecuteAsync(SubmitCourseForReviewRequest request,
+    public async Task<Result> ExecuteAsync(RequestCourseReviewRequest request,
         CancellationToken cancellationToken = default)
     {
         var validationResult = request.Validate();
