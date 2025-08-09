@@ -13,4 +13,13 @@ public static class CoursesErrors
     public static NotFoundError ModuleNotFound(Guid id) => new($"Module with id '{id}' not found.");
     public static NotFoundError LessonNotFound(Guid id) => new($"Lesson with id '{id}' not found.");
     public static DomainValidationError InvalidReorderPayload(string message) => new(message);
+
+    public static DomainValidationError ImageFileEmpty => new("Image file cannot be empty.");
+    public static DomainValidationError ImageFileTooLarge => new("Image file is too large.");
+
+    public static DomainValidationError InvalidImageContentType =>
+        new("Invalid image content type. Supported types are: image/jpeg, image/png.");
+
+    public static DomainValidationError InvalidImageSize(string message) => new(message);
+    public static DomainValidationError InvalidVideoFormat(string message) => new(message);
 }

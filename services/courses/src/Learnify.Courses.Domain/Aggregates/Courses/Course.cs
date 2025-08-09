@@ -247,12 +247,6 @@ public sealed class Course : AggregateRoot
         // TODO: Add domain event
     }
 
-    public void SentToReview()
-    {
-        if (Status == CourseStatus.Published)
-            RequestReview();
-    }
-
     public void ApproveForPublish()
     {
         if (!IsInReview)

@@ -2,11 +2,10 @@ namespace Learnify.Courses.Application.Abstractions;
 
 public interface IStorageService
 {
-    Task<string> UploadFileAsync(
+    Task UploadFileAsync(
         Stream fileStream,
-        string fileName,
+        string name,
         string contentType,
-        string bucketName,
         CancellationToken cancellationToken = default
     );
 }

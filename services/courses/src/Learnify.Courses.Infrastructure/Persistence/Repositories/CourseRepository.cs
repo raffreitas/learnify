@@ -9,6 +9,11 @@ namespace Learnify.Courses.Infrastructure.Persistence.Repositories;
 internal sealed class CourseRepository(ApplicationDbContext dbContext)
     : RepositoryBase<Course>(dbContext), ICourseRepository
 {
+    public async Task<bool> ExistsByIdAsync(Guid courseId, CancellationToken cancellationToken = default)
+    {
+        return await _dbContext.Courses.AnyAsync(x => x.Id == courseId, cancellationToken);
+    }
+
     public async Task<bool> ExistsByTitleAsync(string title, CancellationToken cancellationToken = default)
     {
         return await _dbContext.Courses.AnyAsync(x => x.Title == title, cancellationToken);

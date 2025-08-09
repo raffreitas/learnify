@@ -21,7 +21,7 @@ internal sealed class SubmitCourseForReviewUseCase(ICourseRepository courseRepos
         if (course is null)
             return Result.Fail(CoursesErrors.CourseNotFound(request.CourseId));
 
-        course.SentToReview();
+        course.RequestReview();
 
         await courseRepository.UpdateAsync(course, cancellationToken);
         await unitOfWork.CommitAsync(cancellationToken);

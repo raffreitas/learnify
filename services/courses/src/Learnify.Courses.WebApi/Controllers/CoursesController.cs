@@ -8,6 +8,7 @@ using Learnify.Courses.Application.Courses.UseCases.UpdateLesson;
 using Learnify.Courses.Application.Courses.UseCases.UpdateModule;
 using Learnify.Courses.Application.Courses.UseCases.ReorderModules;
 using Learnify.Courses.Application.Courses.UseCases.ReorderLessons;
+using Learnify.Courses.Application.Courses.UseCases.UploadCourseImage;
 using Learnify.Courses.WebApi.Models;
 
 using Microsoft.AspNetCore.Mvc;
@@ -189,5 +190,29 @@ public class CoursesController : ControllerBase
     {
         var result = await useCase.ExecuteAsync(model.ToRequest(id, moduleId), cancellationToken);
         return result.IsSuccess ? NoContent() : HandleProblem(result);
+    }
+
+    [HttpPost("{id:guid}/upload-image")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
+    public async Task<IActionResult> UploadImageAsync(
+        [FromRoute] Guid id,
+        [FromForm] IFormFile file,
+        [FromServices] IUploadCourseImageUseCase useCase,
+        CancellationToken cancellationToken
+    )
+    {
+        await using var stream = file.OpenReadStream();
+
+        var request = new UploadCourseImageRequest
+        {
+            CourseId = id, FileStream = stream, ContentType = file.ContentType
+        };
+        var result = await useCase.ExecuteAsync(request, cancellationToken);
+        return result.IsSuccess
+            ? Ok(result.Value)
+            : HandleProblem(result);
     }
 }

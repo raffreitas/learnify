@@ -1,31 +1,33 @@
 using Learnify.Courses.Application.Abstractions;
+using Learnify.Courses.Infrastructure.Storage.Settings;
+
+using Microsoft.Extensions.Options;
 
 using Minio;
 using Minio.DataModel.Args;
 
 namespace Learnify.Courses.Infrastructure.Storage.Services;
 
-internal sealed class MinioStorageService(IMinioClient minioClient) : IStorageService
+internal sealed class MinioStorageService(IMinioClient minioClient, IOptions<StorageSettings> options) : IStorageService
 {
-    public async Task<string> UploadFileAsync(
+    private readonly StorageSettings _settings = options.Value;
+
+    public async Task UploadFileAsync(
         Stream fileStream,
-        string fileName,
+        string name,
         string contentType,
-        string bucketName,
         CancellationToken cancellationToken = default
     )
     {
-        await CreateBucketIfNotExistsAsync(bucketName, cancellationToken);
+        await CreateBucketIfNotExistsAsync(_settings.BucketName, cancellationToken);
 
         var putObjectArgs = new PutObjectArgs()
-            .WithBucket(bucketName)
-            .WithObject(fileName)
+            .WithBucket(_settings.BucketName)
+            .WithObject(name)
             .WithStreamData(fileStream)
             .WithObjectSize(fileStream.Length)
             .WithContentType(contentType);
         await minioClient.PutObjectAsync(putObjectArgs, cancellationToken);
-
-        return $"{bucketName}/{fileName}";
     }
 
     private async Task CreateBucketIfNotExistsAsync(string bucketName, CancellationToken cancellationToken = default)

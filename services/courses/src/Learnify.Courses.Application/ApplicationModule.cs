@@ -9,6 +9,7 @@ using Learnify.Courses.Application.Courses.UseCases.UpdateLesson;
 using Learnify.Courses.Application.Courses.UseCases.UpdateModule;
 using Learnify.Courses.Application.Courses.UseCases.ReorderModules;
 using Learnify.Courses.Application.Courses.UseCases.ReorderLessons;
+using Learnify.Courses.Application.Courses.UseCases.UploadCourseImage;
 
 using Microsoft.Extensions.DependencyInjection;
 
@@ -34,12 +35,13 @@ public static class ApplicationModule
         services.AddScoped<IUpdateCourseUseCase, UpdateCourseUseCase>();
         services.AddScoped<IPublishCourseUseCase, PublishCourseUseCase>();
         services.AddScoped<ISubmitCourseForReviewUseCase, SubmitCourseForReviewUseCase>();
+        services.AddScoped<IUploadCourseImageUseCase, UploadCourseImageUseCase>();
 
         services.AddScoped<ICreateModuleUseCase, CreateModuleUseCase>();
-    services.AddScoped<IUpdateModuleUseCase, UpdateModuleUseCase>();
-    services.AddScoped<ICreateLessonUseCase, CreateLessonUseCase>();
-    services.AddScoped<IUpdateLessonUseCase, UpdateLessonUseCase>();
-    services.AddScoped<IReorderModulesUseCase, ReorderModulesUseCase>();
-    services.AddScoped<IReorderLessonsUseCase, ReorderLessonsUseCase>();
+        services.AddScoped<IUpdateModuleUseCase, UpdateModuleUseCase>();
+        services.AddScoped<ICreateLessonUseCase, CreateLessonUseCase>();
+        services.AddScoped<IUpdateLessonUseCase, UpdateLessonUseCase>();
+        services.AddScoped<IReorderModulesUseCase, ReorderModulesUseCase>();
+        services.AddScoped<IReorderLessonsUseCase, ReorderLessonsUseCase>();
     }
 }
