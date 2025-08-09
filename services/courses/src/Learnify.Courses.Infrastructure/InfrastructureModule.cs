@@ -7,10 +7,14 @@ using Learnify.Courses.Infrastructure.Persistence.Repositories;
 using Learnify.Courses.Infrastructure.Persistence.Settings;
 using Learnify.Courses.Infrastructure.Persistence.Shared;
 using Learnify.Courses.Infrastructure.Shared.Extensions;
+using Learnify.Courses.Infrastructure.Storage.Services;
+using Learnify.Courses.Infrastructure.Storage.Settings;
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+
+using Minio;
 
 namespace Learnify.Courses.Infrastructure;
 
@@ -22,6 +26,7 @@ public static class InfrastructureModule
     )
     {
         services.AddPersistence(configuration);
+        services.AddStorage(configuration);
         return services;
     }
 
@@ -40,5 +45,17 @@ public static class InfrastructureModule
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<ICourseRepository, CourseRepository>();
         services.AddScoped<ICategoryRepository, CategoryRepository>();
+    }
+
+    private static void AddStorage(this IServiceCollection services, IConfiguration configuration)
+    {
+        var settings = services.GetAndConfigureSettings<StorageSettings>(configuration, StorageSettings.SectionName);
+        services.AddSingleton<IMinioClient>(_ => new MinioClient()
+            .WithEndpoint(settings.Endpoint)
+            .WithCredentials(settings.AccessKey, settings.SecretKey)
+            .WithSSL(settings.UseSsl)
+            .Build());
+
+        services.AddScoped<IStorageService, MinioStorageService>();
     }
 }
