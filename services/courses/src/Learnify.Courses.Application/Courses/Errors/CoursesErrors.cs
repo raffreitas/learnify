@@ -9,4 +9,8 @@ public static class CoursesErrors
     public static ConflictError CourseAlreadyExists(string message) => new(message);
     public static DomainValidationError ModuleCannotBeAdded(string message) => new(message);
     public static ConflictError ModuleAlreadyExists => new("Module with the same title already exists");
+
+    public static NotFoundError ModuleNotFound(Guid id) => new($"Module with id '{id}' not found.");
+    public static NotFoundError LessonNotFound(Guid id) => new($"Lesson with id '{id}' not found.");
+    public static DomainValidationError InvalidReorderPayload(string message) => new(message);
 }

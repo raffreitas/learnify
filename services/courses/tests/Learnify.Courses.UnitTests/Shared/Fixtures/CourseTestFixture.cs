@@ -1,4 +1,4 @@
-﻿using Bogus;
+using Bogus;
 
 using Learnify.Courses.Domain.Aggregates.Courses;
 using Learnify.Courses.Domain.Aggregates.Courses.Entities;
@@ -6,7 +6,7 @@ using Learnify.Courses.Domain.Aggregates.Courses.Enums;
 using Learnify.Courses.Domain.Aggregates.Courses.Models;
 using Learnify.Courses.Domain.Aggregates.Courses.ValueObjects;
 
-namespace Learnify.Courses.UnitTests.Domain.Aggregates.Courses;
+namespace Learnify.Courses.UnitTests.Shared.Fixtures;
 
 public sealed class CourseTestFixture
 {
@@ -57,7 +57,7 @@ public sealed class CourseTestFixture
         var course = CreateValidCourseWithModule();
         var moduleId = course.Modules.First().Id;
         course.AddLessonToModule(moduleId, CreateLessonInfo());
-        course.AddCategory(CategoryId.Create(Guid.NewGuid()));
+        course.AddCategory(CategoryId.Create(Guid.NewGuid()));                          
         return course;
     }
 

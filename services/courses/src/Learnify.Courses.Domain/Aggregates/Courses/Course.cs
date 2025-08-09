@@ -151,6 +151,62 @@ public sealed class Course : AggregateRoot
         UpdatedAt = DateTimeOffset.UtcNow;
     }
 
+    public void UpdateModule(Guid moduleId, string title, int order)
+    {
+        if (IsInReview || IsDeleted)
+            throw new DomainException("Unable to update module for this course.");
+
+        var module = _modules.FirstOrDefault(m => m.Id == moduleId)
+                     ?? throw new DomainException("Module not found.");
+
+        module.UpdateInfo(title, order);
+        UpdatedAt = DateTimeOffset.UtcNow;
+    }
+
+    public void UpdateLesson(Guid moduleId, Guid lessonId, LessonInfo info)
+    {
+        if (IsInReview || IsDeleted)
+            throw new DomainException("Unable to update lesson for this course.");
+
+        var module = _modules.FirstOrDefault(m => m.Id == moduleId)
+                     ?? throw new DomainException("Module not found.");
+
+        var lesson = module.Lessons.FirstOrDefault(l => l.Id == lessonId)
+                     ?? throw new DomainException("Lesson not found.");
+
+        lesson.UpdateInfo(info);
+        UpdatedAt = DateTimeOffset.UtcNow;
+    }
+
+    public void ReorderModules(Dictionary<Guid, int> positions)
+    {
+        if (IsInReview || IsDeleted)
+            throw new DomainException("Unable to reorder modules for this course.");
+
+        foreach (var module in _modules)
+        {
+            if (positions.TryGetValue(module.Id, out var newOrder))
+            {
+                module.UpdateOrder(newOrder);
+            }
+        }
+
+        _modules.Sort((a, b) => a.Order.CompareTo(b.Order));
+        UpdatedAt = DateTimeOffset.UtcNow;
+    }
+
+    public void ReorderLessons(Guid moduleId, Dictionary<Guid, int> positions)
+    {
+        if (IsInReview || IsDeleted)
+            throw new DomainException("Unable to reorder lessons for this course.");
+
+        var module = _modules.FirstOrDefault(m => m.Id == moduleId)
+                     ?? throw new DomainException("Module not found.");
+
+        module.ReorderLessons(positions);
+        UpdatedAt = DateTimeOffset.UtcNow;
+    }
+
     public void ClearCategories()
     {
         if (Status is CourseStatus.InReview or CourseStatus.Deleted)

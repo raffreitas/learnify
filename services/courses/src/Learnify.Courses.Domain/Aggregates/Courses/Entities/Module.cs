@@ -44,5 +44,39 @@ public sealed class Module : Entity
         _lessons.Add(lesson);
     }
 
+    public void UpdateInfo(string title, int order)
+    {
+        DomainException.ThrowIfNullOrWhitespace(title, nameof(title));
+        DomainException.ThrowIfNegative(order, nameof(order));
+
+        Title = title;
+        Order = order;
+        UpdatedAt = DateTimeOffset.UtcNow;
+    }
+
     public bool HasLessons() => _lessons.Count > 0;
+
+    public void UpdateOrder(int order)
+    {
+        DomainException.ThrowIfNegative(order, nameof(order));
+        Order = order;
+        UpdatedAt = DateTimeOffset.UtcNow;
+    }
+
+    public void ReorderLessons(Dictionary<Guid, int> positions)
+    {
+        if (positions.Count == 0) return;
+
+        foreach (var lesson in _lessons)
+        {
+            if (positions.TryGetValue(lesson.Id, out var newOrder))
+            {
+                lesson.UpdateOrder(newOrder);
+            }
+        }
+
+        // keep _lessons sorted by Order after updates
+        _lessons.Sort((a, b) => a.Order.CompareTo(b.Order));
+        UpdatedAt = DateTimeOffset.UtcNow;
+    }
 }

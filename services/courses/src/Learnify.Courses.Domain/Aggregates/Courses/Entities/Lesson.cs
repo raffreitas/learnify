@@ -41,4 +41,26 @@ public sealed class Lesson : Entity
         var lesson = new Lesson(moduleId, info.Title, info.Description, info.VideoUrl, info.Order, info.IsPublic);
         return lesson;
     }
+
+    public void UpdateInfo(LessonInfo info)
+    {
+        DomainException.ThrowIfNullOrWhitespace(info.Title, nameof(info.Title));
+        DomainException.ThrowIfNullOrWhitespace(info.Description, nameof(info.Description));
+        DomainException.ThrowIfNullOrWhitespace(info.VideoUrl, nameof(info.VideoUrl));
+        DomainException.ThrowIfNegative(info.Order, nameof(info.Order));
+
+        Title = info.Title;
+        Description = info.Description;
+        VideoUrl = info.VideoUrl;
+        Order = info.Order;
+        IsPublic = info.IsPublic;
+        UpdatedAt = DateTimeOffset.UtcNow;
+    }
+
+    public void UpdateOrder(int order)
+    {
+        DomainException.ThrowIfNegative(order, nameof(order));
+        Order = order;
+        UpdatedAt = DateTimeOffset.UtcNow;
+    }
 }

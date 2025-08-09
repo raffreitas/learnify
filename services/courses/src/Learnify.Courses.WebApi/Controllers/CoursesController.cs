@@ -1,8 +1,13 @@
 using Learnify.Courses.Application.Courses.UseCases.CreateCourse;
 using Learnify.Courses.Application.Courses.UseCases.CreateModule;
+using Learnify.Courses.Application.Courses.UseCases.CreateLesson;
 using Learnify.Courses.Application.Courses.UseCases.PublishCourse;
 using Learnify.Courses.Application.Courses.UseCases.SubmitCourseForReview;
 using Learnify.Courses.Application.Courses.UseCases.UpdateCourse;
+using Learnify.Courses.Application.Courses.UseCases.UpdateLesson;
+using Learnify.Courses.Application.Courses.UseCases.UpdateModule;
+using Learnify.Courses.Application.Courses.UseCases.ReorderModules;
+using Learnify.Courses.Application.Courses.UseCases.ReorderLessons;
 using Learnify.Courses.WebApi.Models;
 
 using Microsoft.AspNetCore.Mvc;
@@ -97,5 +102,92 @@ public class CoursesController : ControllerBase
         return result.IsSuccess
             ? CreatedAtAction("", new { id = result.Value.ModuleId }, result.Value)
             : HandleProblem(result);
+    }
+
+    [HttpPut("{id:guid}/modules/{moduleId:guid}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
+    public async Task<IActionResult> UpdateModuleAsync(
+        [FromRoute] Guid id,
+        [FromRoute] Guid moduleId,
+        [FromBody] UpdateModuleModel model,
+        [FromServices] IUpdateModuleUseCase useCase,
+        CancellationToken cancellationToken
+    )
+    {
+        var result = await useCase.ExecuteAsync(model.ToRequest(id, moduleId), cancellationToken);
+        return result.IsSuccess ? NoContent() : HandleProblem(result);
+    }
+
+    [HttpPost("{id:guid}/modules/{moduleId:guid}/lessons")]
+    [ProducesResponseType<CreateLessonResponse>(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
+    public async Task<IActionResult> CreateLessonAsync(
+        [FromRoute] Guid id,
+        [FromRoute] Guid moduleId,
+        [FromBody] CreateLessonModel model,
+        [FromServices] ICreateLessonUseCase useCase,
+        CancellationToken cancellationToken
+    )
+    {
+        var result = await useCase.ExecuteAsync(model.ToRequest(id, moduleId), cancellationToken);
+        return result.IsSuccess
+            ? CreatedAtAction("", new { id = result.Value.LessonId }, result.Value)
+            : HandleProblem(result);
+    }
+
+    [HttpPut("{id:guid}/modules/{moduleId:guid}/lessons/{lessonId:guid}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
+    public async Task<IActionResult> UpdateLessonAsync(
+        [FromRoute] Guid id,
+        [FromRoute] Guid moduleId,
+        [FromRoute] Guid lessonId,
+        [FromBody] UpdateLessonModel model,
+        [FromServices] IUpdateLessonUseCase useCase,
+        CancellationToken cancellationToken
+    )
+    {
+        var result = await useCase.ExecuteAsync(model.ToRequest(id, moduleId, lessonId), cancellationToken);
+        return result.IsSuccess ? NoContent() : HandleProblem(result);
+    }
+
+    [HttpPut("{id:guid}/modules:reorder")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
+    public async Task<IActionResult> ReorderModulesAsync(
+        [FromRoute] Guid id,
+        [FromBody] ReorderModulesModel model,
+        [FromServices] IReorderModulesUseCase useCase,
+        CancellationToken cancellationToken
+    )
+    {
+        var result = await useCase.ExecuteAsync(model.ToRequest(id), cancellationToken);
+        return result.IsSuccess ? NoContent() : HandleProblem(result);
+    }
+
+    [HttpPut("{id:guid}/modules/{moduleId:guid}/lessons:reorder")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
+    public async Task<IActionResult> ReorderLessonsAsync(
+        [FromRoute] Guid id,
+        [FromRoute] Guid moduleId,
+        [FromBody] ReorderLessonsModel model,
+        [FromServices] IReorderLessonsUseCase useCase,
+        CancellationToken cancellationToken
+    )
+    {
+        var result = await useCase.ExecuteAsync(model.ToRequest(id, moduleId), cancellationToken);
+        return result.IsSuccess ? NoContent() : HandleProblem(result);
     }
 }

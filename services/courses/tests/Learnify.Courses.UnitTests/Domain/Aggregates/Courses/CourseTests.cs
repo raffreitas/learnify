@@ -3,13 +3,14 @@ using Learnify.Courses.Domain.Aggregates.Courses.Entities;
 using Learnify.Courses.Domain.Aggregates.Courses.Enums;
 using Learnify.Courses.Domain.Aggregates.Courses.ValueObjects;
 using Learnify.Courses.Domain.Exceptions;
+using Learnify.Courses.UnitTests.Shared.Fixtures;
 
 using Shouldly;
 
 namespace Learnify.Courses.UnitTests.Domain.Aggregates.Courses;
 
 [Trait("UnitTests", "Domain - Aggregates")]
-public sealed class CourseTest(CourseTestFixture fixture) : IClassFixture<CourseTestFixture>
+public sealed class CourseTests(CourseTestFixture fixture) : IClassFixture<CourseTestFixture>
 {
     [Fact(DisplayName = nameof(Create_Should_Return_Valid_Course))]
     public void Create_Should_Return_Valid_Course()
