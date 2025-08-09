@@ -23,6 +23,7 @@ public sealed class Course : AggregateRoot
     public DifficultyLevel DifficultyLevel { get; private set; }
     public IReadOnlyCollection<Module> Modules => _modules.AsReadOnly();
     public IReadOnlyCollection<CategoryId> Categories => _categories.AsReadOnly();
+    public bool IsRevised { get; private set; }
 
     public bool IsDraft => Status == CourseStatus.Draft;
     public bool IsPublished => Status == CourseStatus.Published;
@@ -56,6 +57,7 @@ public sealed class Course : AggregateRoot
         Language = language;
         DifficultyLevel = difficultyLevel;
         Status = status;
+        IsRevised = false;
     }
 
     public static Course Create(
@@ -114,23 +116,31 @@ public sealed class Course : AggregateRoot
         Price = price ?? Price;
         Language = language ?? Language;
         DifficultyLevel = difficultyLevel ?? DifficultyLevel;
+
+        UpdatedAt = DateTimeOffset.UtcNow;
     }
 
-    public void AddModule(string title, int order)
+
+    public bool ModuleExists(Module module)
+        => _modules.Any(m => m.Title.Equals(module.Title, StringComparison.OrdinalIgnoreCase));
+
+
+    public void AddModule(Module module)
     {
-        if (Status is CourseStatus.InReview or CourseStatus.Deleted)
+        if (IsInReview || IsDeleted)
             throw new DomainException("Unable to add module for this course");
 
-        var module = Module.Create(Id, title, order);
+        if (ModuleExists(module))
+            throw new DomainException("Module with the same title already exists.");
 
         _modules.Add(module);
 
-        SentToReviewIfPublished();
+        UpdatedAt = DateTimeOffset.UtcNow;
     }
 
     public void AddLessonToModule(Guid moduleId, LessonInfo info)
     {
-        if (Status is CourseStatus.InReview or CourseStatus.Deleted)
+        if (IsInReview || IsDeleted)
             throw new DomainException("Unable to add lesson for this course.");
 
         var module = _modules.FirstOrDefault(m => m.Id == moduleId)
@@ -138,7 +148,7 @@ public sealed class Course : AggregateRoot
 
         module.AddLesson(info);
 
-        SentToReviewIfPublished();
+        UpdatedAt = DateTimeOffset.UtcNow;
     }
 
     public void ClearCategories()
@@ -147,6 +157,8 @@ public sealed class Course : AggregateRoot
             throw new DomainException("Unable to update categories for this course.");
 
         _categories.Clear();
+
+        UpdatedAt = DateTimeOffset.UtcNow;
     }
 
     public void AddCategory(CategoryId category)
@@ -155,6 +167,8 @@ public sealed class Course : AggregateRoot
             throw new DomainException("Unable to add category for this course.");
 
         _categories.Add(category);
+
+        UpdatedAt = DateTime.UtcNow;
     }
 
     public void RequestReview()
@@ -177,7 +191,7 @@ public sealed class Course : AggregateRoot
         // TODO: Add domain event
     }
 
-    private void SentToReviewIfPublished()
+    public void SentToReview()
     {
         if (Status == CourseStatus.Published)
             RequestReview();

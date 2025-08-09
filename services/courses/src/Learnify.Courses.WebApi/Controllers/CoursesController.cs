@@ -1,4 +1,7 @@
 using Learnify.Courses.Application.Courses.UseCases.CreateCourse;
+using Learnify.Courses.Application.Courses.UseCases.CreateModule;
+using Learnify.Courses.Application.Courses.UseCases.PublishCourse;
+using Learnify.Courses.Application.Courses.UseCases.SubmitCourseForReview;
 using Learnify.Courses.Application.Courses.UseCases.UpdateCourse;
 using Learnify.Courses.WebApi.Models;
 
@@ -46,5 +49,53 @@ public class CoursesController : ControllerBase
     public IActionResult GetCourseById(Guid id)
     {
         return NotFound();
+    }
+
+    [HttpPatch("{id:guid}/publish")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
+    public async Task<IActionResult> PublishCourse(
+        [FromRoute] Guid id,
+        [FromServices] IPublishCourseUseCase useCase,
+        CancellationToken cancellationToken
+    )
+    {
+        var result = await useCase.ExecuteAsync(new PublishCourseRequest { CourseId = id }, cancellationToken);
+        return result.IsSuccess ? NoContent() : HandleProblem(result);
+    }
+
+    [HttpPatch("{id:guid}/submit-for-review")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
+    public async Task<IActionResult> SubmitCourseForReview(
+        [FromRoute] Guid id,
+        [FromServices] ISubmitCourseForReviewUseCase useCase,
+        CancellationToken cancellationToken
+    )
+    {
+        var result = await useCase.ExecuteAsync(new SubmitCourseForReviewRequest { CourseId = id }, cancellationToken);
+        return result.IsSuccess ? NoContent() : HandleProblem(result);
+    }
+
+    [HttpPost("{id:guid}/modules")]
+    [ProducesResponseType<CreateModuleResponse>(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
+    public async Task<IActionResult> CreateModuleAsync(
+        [FromRoute] Guid id,
+        [FromBody] CreateModuleModel model,
+        [FromServices] ICreateModuleUseCase useCase,
+        CancellationToken cancellationToken
+    )
+    {
+        var result = await useCase.ExecuteAsync(model.ToRequest(id), cancellationToken);
+        return result.IsSuccess
+            ? CreatedAtAction("", new { id = result.Value.ModuleId }, result.Value)
+            : HandleProblem(result);
     }
 }

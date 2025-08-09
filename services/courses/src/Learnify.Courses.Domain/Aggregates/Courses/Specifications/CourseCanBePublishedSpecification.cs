@@ -4,17 +4,9 @@ namespace Learnify.Courses.Domain.Aggregates.Courses.Specifications;
 
 internal sealed class CourseCanBePublishedSpecification : ISpecification<Course>
 {
-    private readonly List<ISpecification<Course>> _specifications;
-    public CourseCanBePublishedSpecification()
-    {
-        _specifications =
-        [
-            new CourseMustHaveBasicInfoSpecification(),
-            new CourseMustHaveMetadataSpecification(),
-            new CourseMustHaveContentSpecification()
-        ];
-    }
+    private readonly CourseCanBeSentForReviewSpecification _internalSpec = new();
 
     public bool IsSatisfiedBy(Course entity)
-        => _specifications.All(spec => spec.IsSatisfiedBy(entity));
+        => _internalSpec.IsSatisfiedBy(entity)
+           && entity.IsRevised;
 }
