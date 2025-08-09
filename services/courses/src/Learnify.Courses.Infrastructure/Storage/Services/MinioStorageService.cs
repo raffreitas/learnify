@@ -30,6 +30,23 @@ internal sealed class MinioStorageService(IMinioClient minioClient, IOptions<Sto
         await minioClient.PutObjectAsync(putObjectArgs, cancellationToken);
     }
 
+    public async Task<string> GetFileUrlAsync(
+        string name,
+        TimeSpan? expirationTime = null,
+        CancellationToken cancellationToken = default
+    )
+    {
+        var expiration = expirationTime.HasValue && expirationTime.Value > TimeSpan.Zero
+            ? expirationTime.Value
+            : TimeSpan.FromMinutes(_settings.DefaultExpirationInMinutes);
+
+        var args = new PresignedGetObjectArgs()
+            .WithBucket(_settings.BucketName)
+            .WithObject(name)
+            .WithExpiry((int)expiration.TotalSeconds);
+        return await minioClient.PresignedGetObjectAsync(args);
+    }
+
     private async Task CreateBucketIfNotExistsAsync(string bucketName, CancellationToken cancellationToken = default)
     {
         bool exists = await minioClient.BucketExistsAsync(

@@ -8,4 +8,10 @@ public interface IStorageService
         string contentType,
         CancellationToken cancellationToken = default
     );
+
+    Task<string> GetFileUrlAsync(
+        string name,
+        TimeSpan? expirationTime = null,
+        CancellationToken cancellationToken = default
+    );
 }

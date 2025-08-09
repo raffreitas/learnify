@@ -11,4 +11,5 @@ public sealed record StorageSettings
     [Required] public required string SecretKey { get; init; }
     [Required] public required bool UseSsl { get; init; }
     [Required] public required string BucketName { get; init; }
+    [Required] public required int DefaultExpirationInMinutes { get; init; } = 60;
 };
