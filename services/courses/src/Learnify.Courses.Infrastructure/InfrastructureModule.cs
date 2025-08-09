@@ -1,8 +1,10 @@
 using Learnify.Courses.Application.Abstractions;
+using Learnify.Courses.Application.Courses.Abstractions;
 using Learnify.Courses.Domain.Aggregates.Categories.Repositories;
 using Learnify.Courses.Domain.Aggregates.Courses.Repositories;
 using Learnify.Courses.Infrastructure.Persistence;
 using Learnify.Courses.Infrastructure.Persistence.Context;
+using Learnify.Courses.Infrastructure.Persistence.Queries;
 using Learnify.Courses.Infrastructure.Persistence.Repositories;
 using Learnify.Courses.Infrastructure.Persistence.Settings;
 using Learnify.Courses.Infrastructure.Persistence.Shared;
@@ -45,6 +47,8 @@ public static class InfrastructureModule
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<ICourseRepository, CourseRepository>();
         services.AddScoped<ICategoryRepository, CategoryRepository>();
+
+        services.AddScoped<ICourseQueries, CourseQueries>();
     }
 
     private static void AddStorage(this IServiceCollection services, IConfiguration configuration)

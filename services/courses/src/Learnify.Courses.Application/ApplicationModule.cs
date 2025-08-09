@@ -2,6 +2,7 @@ using Learnify.Courses.Application.Categories.UseCases.CreateCategory;
 using Learnify.Courses.Application.Courses.UseCases.CreateCourse;
 using Learnify.Courses.Application.Courses.UseCases.CreateModule;
 using Learnify.Courses.Application.Courses.UseCases.CreateLesson;
+using Learnify.Courses.Application.Courses.UseCases.GetCourseById;
 using Learnify.Courses.Application.Courses.UseCases.PublishCourse;
 using Learnify.Courses.Application.Courses.UseCases.SubmitCourseForReview;
 using Learnify.Courses.Application.Courses.UseCases.UpdateCourse;
@@ -36,6 +37,7 @@ public static class ApplicationModule
         services.AddScoped<IPublishCourseUseCase, PublishCourseUseCase>();
         services.AddScoped<ISubmitCourseForReviewUseCase, SubmitCourseForReviewUseCase>();
         services.AddScoped<IUploadCourseImageUseCase, UploadCourseImageUseCase>();
+        services.AddScoped<IGetCourseByIdUseCase, GetCourseByIdUseCase>();
 
         services.AddScoped<ICreateModuleUseCase, CreateModuleUseCase>();
         services.AddScoped<IUpdateModuleUseCase, UpdateModuleUseCase>();

@@ -13,4 +13,9 @@ public interface ICategoryRepository : IGenericRepository<Category>
         IEnumerable<Guid> categoryIds,
         CancellationToken cancellationToken = default
     );
+
+    Task<IReadOnlyCollection<Category>> GetByIdsAsync(
+        Guid[] categoryIds,
+        CancellationToken cancellationToken = default
+    );
 }

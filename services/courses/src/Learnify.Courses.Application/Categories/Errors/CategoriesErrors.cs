@@ -4,6 +4,6 @@ namespace Learnify.Courses.Application.Categories.Errors;
 
 public static class CategoriesErrors
 {
-    public static ConflictError CategoryAlreadyExists(string message) => new(message);
+    public static ConflictError CategoryAlreadyExists => new("Category already exists");
     public static NotFoundError CategoryNotFound(string message) => new(message);
 }

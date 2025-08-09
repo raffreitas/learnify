@@ -17,7 +17,6 @@ public sealed class CreateModuleUseCase(ICourseRepository courseRepository, IUni
         var validationResult = request.Validate();
         if (!validationResult.IsValid)
             return Result.Fail(validationResult.GetValidationError());
-
         var course = await courseRepository.GetByIdAsync(request.CourseId, cancellationToken);
         if (course is null)
             return Result.Fail(CoursesErrors.CourseNotFound(request.CourseId));

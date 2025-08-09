@@ -23,7 +23,7 @@ public sealed class CreateCategoryUseCase(
             return Result.Fail(validationResult.GetValidationError());
 
         if (await categoryRepository.ExistsByNameAsync(request.Name, cancellationToken))
-            return Result.Fail(CategoriesErrors.CategoryAlreadyExists(request.Name));
+            return Result.Fail(CategoriesErrors.CategoryAlreadyExists);
 
         var category = Category.Create(request.Name);
 

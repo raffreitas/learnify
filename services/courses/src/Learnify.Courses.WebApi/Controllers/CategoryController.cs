@@ -20,7 +20,7 @@ public class CategoryController : ControllerBase
     {
         var result = await useCase.ExecuteAsync(request, cancellationToken);
         return result.IsSuccess
-            ? CreatedAtAction(string.Empty, new { id = result.Value.CategoryId }, result.Value)
+            ? Created("", new { id = result.Value.CategoryId })
             : HandleProblem(result);
     }
 }

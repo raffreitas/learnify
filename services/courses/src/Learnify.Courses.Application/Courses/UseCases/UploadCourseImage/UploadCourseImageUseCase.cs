@@ -35,11 +35,11 @@ internal sealed class UploadCourseImageUseCase(
         if (streamValidationResult.IsFailed)
             return streamValidationResult;
 
-        var contentTypeValidationResult = ExtractExtension(request.ContentType);
-        if (contentTypeValidationResult.IsFailed)
+        var fileExtension = ExtractExtension(request.ContentType);
+        if (fileExtension.IsFailed)
             return Result.Fail(CoursesErrors.InvalidImageContentType);
 
-        var fileKey = $"courses/assets/{request.CourseId}/cover/original{ExtractExtension(request.ContentType)}";
+        var fileKey = $"courses/assets/{request.CourseId}/cover/original{fileExtension.Value}";
 
         await storageService.UploadFileAsync(
             request.FileStream,

@@ -20,5 +20,7 @@ public readonly record struct Price : IValueObject
         return new Price(value, currency);
     }
 
+    public static implicit operator decimal(Price price) => price.Value;
+
     public override string ToString() => Value.ToString("C2");
 }
