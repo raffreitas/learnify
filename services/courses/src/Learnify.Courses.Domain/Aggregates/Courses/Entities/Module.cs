@@ -43,6 +43,11 @@ public sealed class Module : Entity
         var lesson = Lesson.Create(Id, info);
         _lessons.Add(lesson);
     }
+    
+    public void AddLesson(Lesson lesson)
+    {
+        _lessons.Add(lesson);
+    }
 
     public void UpdateInfo(string title, int order)
     {
