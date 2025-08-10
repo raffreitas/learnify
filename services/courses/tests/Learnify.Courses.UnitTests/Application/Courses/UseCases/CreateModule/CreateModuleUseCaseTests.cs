@@ -1,6 +1,7 @@
 using Bogus;
 
 using Learnify.Courses.Application.Abstractions;
+using Learnify.Courses.Application.Abstractions.Persistence;
 using Learnify.Courses.Application.Courses.UseCases.CreateModule;
 using Learnify.Courses.Domain.Aggregates.Courses.Entities;
 using Learnify.Courses.Domain.Aggregates.Courses.Enums;

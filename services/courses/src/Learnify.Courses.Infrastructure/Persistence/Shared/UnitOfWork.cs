@@ -1,4 +1,5 @@
 using Learnify.Courses.Application.Abstractions;
+using Learnify.Courses.Application.Abstractions.Persistence;
 using Learnify.Courses.Infrastructure.Persistence.Context;
 
 namespace Learnify.Courses.Infrastructure.Persistence.Shared;

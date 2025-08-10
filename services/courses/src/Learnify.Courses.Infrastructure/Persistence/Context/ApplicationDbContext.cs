@@ -3,6 +3,7 @@ using Learnify.Courses.Domain.Aggregates.Courses;
 using Learnify.Courses.Domain.Aggregates.Courses.Entities;
 using Learnify.Courses.Domain.SeedWork;
 using Learnify.Courses.Infrastructure.Persistence.Configuration;
+using Learnify.Courses.Infrastructure.Persistence.Models;
 
 using Microsoft.EntityFrameworkCore;
 
@@ -15,10 +16,13 @@ public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> 
     public DbSet<Module> Modules { get; set; }
 
     public DbSet<Category> Categories { get; set; }
+    public DbSet<EventOutbox> EventOutbox { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Ignore<DomainEvent>();
+
+        modelBuilder.ApplyConfiguration(new EventOutboxConfiguration());
 
         modelBuilder.ApplyConfiguration(new CourseConfiguration());
         modelBuilder.ApplyConfiguration(new ModuleConfiguration());

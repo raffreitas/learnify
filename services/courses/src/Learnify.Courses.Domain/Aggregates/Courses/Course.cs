@@ -1,5 +1,6 @@
 ﻿using Learnify.Courses.Domain.Aggregates.Courses.Entities;
 using Learnify.Courses.Domain.Aggregates.Courses.Enums;
+using Learnify.Courses.Domain.Aggregates.Courses.Events;
 using Learnify.Courses.Domain.Aggregates.Courses.Models;
 using Learnify.Courses.Domain.Aggregates.Courses.Specifications;
 using Learnify.Courses.Domain.Aggregates.Courses.ValueObjects;
@@ -121,9 +122,8 @@ public sealed class Course : AggregateRoot
     }
 
 
-    public bool ModuleExists(Module module)
-        => _modules.Any(m => m.Title.Equals(module.Title, StringComparison.OrdinalIgnoreCase));
-
+    public bool ModuleExists(Module module) => _modules
+        .Any(m => m.Title.Equals(module.Title, StringComparison.OrdinalIgnoreCase));
 
     public void AddModule(Module module)
     {
@@ -234,7 +234,8 @@ public sealed class Course : AggregateRoot
             throw new DomainException("Course cannot be reviewed without content.");
 
         Status = CourseStatus.InReview;
-        // TODO: Add domain event
+
+        AddDomainEvent(RequestCourseReviewDomainEvent.FromAggregate(this));
     }
 
     public void Publish()
@@ -244,7 +245,8 @@ public sealed class Course : AggregateRoot
             throw new DomainException("Course cannot be published without content.");
 
         Status = CourseStatus.Published;
-        // TODO: Add domain event
+
+        AddDomainEvent(CoursePublishedDomainEvent.FromAggregate(this));
     }
 
     public void ApproveForPublish()
@@ -253,5 +255,7 @@ public sealed class Course : AggregateRoot
             throw new DomainException("Course cannot be approved for publishing.");
 
         IsRevised = true;
+
+        AddDomainEvent(CourseApprovedDomainEvent.FromAggregate(this));
     }
 }

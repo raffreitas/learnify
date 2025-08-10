@@ -1,11 +1,16 @@
 using Learnify.Courses.Application.Abstractions;
+using Learnify.Courses.Application.Abstractions.Events.Abstractions;
+using Learnify.Courses.Application.Abstractions.Persistence;
+using Learnify.Courses.Application.Abstractions.Storage;
 using Learnify.Courses.Application.Courses.Abstractions;
 using Learnify.Courses.Domain.Aggregates.Categories.Repositories;
 using Learnify.Courses.Domain.Aggregates.Courses.Repositories;
 using Learnify.Courses.Infrastructure.Persistence;
 using Learnify.Courses.Infrastructure.Persistence.Context;
+using Learnify.Courses.Infrastructure.Persistence.Interceptors;
 using Learnify.Courses.Infrastructure.Persistence.Queries;
 using Learnify.Courses.Infrastructure.Persistence.Repositories;
+using Learnify.Courses.Infrastructure.Persistence.Services;
 using Learnify.Courses.Infrastructure.Persistence.Settings;
 using Learnify.Courses.Infrastructure.Persistence.Shared;
 using Learnify.Courses.Infrastructure.Shared.Extensions;
@@ -36,17 +41,24 @@ public static class InfrastructureModule
     {
         var settings = services.GetAndConfigureSettings<DatabaseSettings>(configuration, DatabaseSettings.SectionName);
 
-        services.AddDbContext<ApplicationDbContext>(options =>
+        services.AddScoped<SavingChangesInterceptor>();
+        services.AddDbContext<ApplicationDbContext>((sp, options) =>
         {
             options.UseNpgsql(settings.ConnectionString, optionsBuilder =>
             {
                 optionsBuilder.EnableRetryOnFailure();
-            }).UseSnakeCaseNamingConvention();
+            });
+
+            options
+                .UseSnakeCaseNamingConvention()
+                .AddInterceptors(sp.GetRequiredService<SavingChangesInterceptor>());
         });
 
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<ICourseRepository, CourseRepository>();
         services.AddScoped<ICategoryRepository, CategoryRepository>();
+
+        services.AddScoped<IEventOutboxService, EventOutboxService>();
 
         services.AddScoped<ICourseQueries, CourseQueries>();
     }

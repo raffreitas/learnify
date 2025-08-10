@@ -230,6 +230,46 @@ namespace Learnify.Courses.Infrastructure.Persistence.Migrations
                     b.ToTable("modules", (string)null);
                 });
 
+            modelBuilder.Entity("Learnify.Courses.Infrastructure.Persistence.Models.EventOutbox", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("jsonb")
+                        .HasColumnName("content");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<DateTimeOffset>("OccurredAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("occurred_at");
+
+                    b.Property<DateTimeOffset?>("ProcessedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("processed_at");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("type");
+
+                    b.HasKey("Id")
+                        .HasName("pk_event_outbox");
+
+                    b.HasIndex("OccurredAt")
+                        .IsDescending()
+                        .HasDatabaseName("ix_event_outbox_occurred_at");
+
+                    b.ToTable("event_outbox", (string)null);
+                });
+
             modelBuilder.Entity("Learnify.Courses.Domain.Aggregates.Courses.Course", b =>
                 {
                     b.OwnsMany("Learnify.Courses.Domain.Aggregates.Courses.ValueObjects.CategoryId", "Categories", b1 =>

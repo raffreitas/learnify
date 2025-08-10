@@ -1,4 +1,4 @@
-namespace Learnify.Courses.Application.Abstractions;
+namespace Learnify.Courses.Application.Abstractions.Persistence;
 
 public interface IUnitOfWork
 {
