@@ -4,6 +4,8 @@ using Learnify.Courses.Application.Abstractions.Events.Abstractions;
 using Learnify.Courses.Infrastructure.Persistence.Context;
 using Learnify.Courses.Infrastructure.Persistence.Models;
 
+using Microsoft.EntityFrameworkCore;
+
 namespace Learnify.Courses.Infrastructure.Persistence.Services;
 
 internal sealed class EventOutboxService(ApplicationDbContext dbContext) : IEventOutboxService
@@ -17,6 +19,6 @@ internal sealed class EventOutboxService(ApplicationDbContext dbContext) : IEven
             integrationEvent.OccurredOn
         );
 
-        await dbContext.Set<EventOutbox>().AddAsync(outboxEvent, cancellationToken);
+        await dbContext.EventOutbox.AddAsync(outboxEvent, cancellationToken);
     }
 }
