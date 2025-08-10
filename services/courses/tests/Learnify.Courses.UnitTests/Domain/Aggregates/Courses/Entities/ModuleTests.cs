@@ -82,11 +82,9 @@ public sealed class ModuleTests
         var l1 = Lesson.Create(module.Id, new LessonInfo("A", "d", "u", 0, false));
         var l2 = Lesson.Create(module.Id, new LessonInfo("B", "d", "u", 1, false));
         var l3 = Lesson.Create(module.Id, new LessonInfo("C", "d", "u", 2, false));
-        // add via reflection since Module adds lessons internally through AddLesson
-        var lessonsField = typeof(Module).GetField("_lessons",
-            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!;
-        var list = (List<Lesson>)lessonsField.GetValue(module)!;
-        list.AddRange([l1, l2, l3]);
+        module.AddLesson(l1);
+        module.AddLesson(l2);
+        module.AddLesson(l3);
 
         var positions = new Dictionary<Guid, int> { [l1.Id] = 2, [l2.Id] = 0, [l3.Id] = 1 };
 
