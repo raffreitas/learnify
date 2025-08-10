@@ -1,4 +1,5 @@
 using Learnify.Courses.Application.Abstractions;
+using Learnify.Courses.Application.Abstractions.Storage;
 using Learnify.Courses.Application.Courses.UseCases.UploadCourseImage;
 using Learnify.Courses.Domain.Aggregates.Courses.Repositories;
 

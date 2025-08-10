@@ -1,6 +1,7 @@
 using Bogus;
 
 using Learnify.Courses.Application.Abstractions;
+using Learnify.Courses.Application.Abstractions.Persistence;
 using Learnify.Courses.Application.Categories.Errors;
 using Learnify.Courses.Application.Courses.UseCases.UpdateCourse;
 using Learnify.Courses.Domain.Aggregates.Categories.Repositories;

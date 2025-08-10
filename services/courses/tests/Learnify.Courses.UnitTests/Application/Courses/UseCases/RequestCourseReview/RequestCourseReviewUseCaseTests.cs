@@ -1,4 +1,5 @@
 using Learnify.Courses.Application.Abstractions;
+using Learnify.Courses.Application.Abstractions.Persistence;
 using Learnify.Courses.Application.Courses.UseCases.RequestCourseReview;
 using Learnify.Courses.Domain.Aggregates.Courses.Repositories;
 using Learnify.Courses.UnitTests.Shared.Fixtures;

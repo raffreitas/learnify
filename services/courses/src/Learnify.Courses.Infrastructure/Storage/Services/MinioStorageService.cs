@@ -1,4 +1,5 @@
 using Learnify.Courses.Application.Abstractions;
+using Learnify.Courses.Application.Abstractions.Storage;
 using Learnify.Courses.Infrastructure.Storage.Settings;
 
 using Microsoft.Extensions.Options;

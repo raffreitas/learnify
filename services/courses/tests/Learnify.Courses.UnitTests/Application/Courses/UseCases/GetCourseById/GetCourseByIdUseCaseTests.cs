@@ -1,6 +1,7 @@
 using Bogus;
 
 using Learnify.Courses.Application.Abstractions;
+using Learnify.Courses.Application.Abstractions.Storage;
 using Learnify.Courses.Application.Courses.UseCases.GetCourseById;
 using Learnify.Courses.Domain.Aggregates.Categories;
 using Learnify.Courses.Domain.Aggregates.Categories.Repositories;

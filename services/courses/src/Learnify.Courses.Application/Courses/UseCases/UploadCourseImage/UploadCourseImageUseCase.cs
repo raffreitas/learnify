@@ -1,6 +1,7 @@
 using FluentResults;
 
 using Learnify.Courses.Application.Abstractions;
+using Learnify.Courses.Application.Abstractions.Storage;
 using Learnify.Courses.Application.Courses.Errors;
 using Learnify.Courses.Application.Shared.Extensions;
 using Learnify.Courses.Domain.Aggregates.Courses.Repositories;

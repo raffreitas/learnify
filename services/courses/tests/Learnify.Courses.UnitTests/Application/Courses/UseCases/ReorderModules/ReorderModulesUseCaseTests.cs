@@ -1,4 +1,5 @@
 using Learnify.Courses.Application.Abstractions;
+using Learnify.Courses.Application.Abstractions.Persistence;
 using Learnify.Courses.Application.Courses.UseCases.ReorderModules;
 using Learnify.Courses.Domain.Aggregates.Courses.Entities;
 using Learnify.Courses.Domain.Aggregates.Courses.Repositories;

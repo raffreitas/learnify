@@ -1,4 +1,4 @@
-namespace Learnify.Courses.Application.Abstractions;
+namespace Learnify.Courses.Application.Abstractions.Storage;
 
 public interface IStorageService
 {
