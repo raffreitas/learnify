@@ -29,7 +29,7 @@ public class CreateLessonUseCaseTests : IClassFixture<CourseTestFixture>
         _useCase = new CreateLessonUseCase(_courseRepository, _unitOfWork);
     }
 
-    [Fact]
+    [Fact(DisplayName = nameof(ExecuteAsync_Should_Create_Lesson_When_Valid))]
     public async Task ExecuteAsync_Should_Create_Lesson_When_Valid()
     {
         // Arrange
@@ -59,7 +59,7 @@ public class CreateLessonUseCaseTests : IClassFixture<CourseTestFixture>
         course.Modules.First().Lessons.Count.ShouldBe(1);
     }
 
-    [Fact]
+    [Fact(DisplayName = nameof(ExecuteAsync_Should_Return_NotFound_When_Course_Not_Found))]
     public async Task ExecuteAsync_Should_Return_NotFound_When_Course_Not_Found()
     {
         // Arrange
@@ -74,6 +74,56 @@ public class CreateLessonUseCaseTests : IClassFixture<CourseTestFixture>
             VideoUrl = _faker.Internet.Url(),
             Order = 0,
             IsPublic = false
+        };
+
+        // Act
+        var result = await _useCase.ExecuteAsync(request);
+
+        // Assert
+        result.IsFailed.ShouldBeTrue();
+    }
+
+    [Fact(DisplayName = nameof(ExecuteAsync_Should_Return_ValidationError_When_Request_Is_Invalid))]
+    public async Task ExecuteAsync_Should_Return_ValidationError_When_Request_Is_Invalid()
+    {
+        // Arrange
+        var request = new CreateLessonRequest
+        {
+            CourseId = Guid.Empty,
+            ModuleId = Guid.NewGuid(),
+            Title = _faker.Commerce.ProductName(),
+            Description = _faker.Commerce.ProductDescription(),
+            VideoUrl = _faker.Internet.Url(),
+            Order = 0,
+            IsPublic = false
+        };
+
+        // Act
+        var result = await _useCase.ExecuteAsync(request);
+
+        // Assert
+        result.IsFailed.ShouldBeTrue();
+    }
+
+    [Fact(DisplayName = nameof(ExecuteAsync_Should_Return_ModuleCannotBeAdded_When_Course_Is_InReview))]
+    public async Task ExecuteAsync_Should_Return_ModuleCannotBeAdded_When_Course_Is_InReview()
+    {
+        // Arrange
+        var course = _fixture.CreateValidCourseWithModuleAndCategoryAndLesson();
+        course.RequestReview();
+        var moduleId = course.Modules.First().Id;
+
+        _courseRepository.GetByIdAsync(course.Id, Arg.Any<CancellationToken>()).Returns(course);
+
+        var request = new CreateLessonRequest
+        {
+            CourseId = course.Id,
+            ModuleId = moduleId,
+            Title = _faker.Commerce.ProductName(),
+            Description = _faker.Commerce.ProductDescription(),
+            VideoUrl = _faker.Internet.Url(),
+            Order = _faker.Random.Int(0, 10),
+            IsPublic = true
         };
 
         // Act

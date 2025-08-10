@@ -8,5 +8,5 @@ internal sealed class CourseCanBePublishedSpecification : ISpecification<Course>
 
     public bool IsSatisfiedBy(Course entity)
         => _internalSpec.IsSatisfiedBy(entity)
-           && entity.IsRevised;
+           && entity is { IsRevised: true };
 }
