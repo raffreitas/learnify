@@ -1,3 +1,4 @@
+using System.Collections.Concurrent;
 using System.Text.Json;
 
 using Learnify.Courses.Application.Abstractions.Events.Abstractions;
@@ -16,6 +17,8 @@ public class OutboxPublisherWorker(
     IServiceScopeFactory serviceScopeFactory
 ) : BackgroundService
 {
+    private static readonly ConcurrentDictionary<string, Type?> TypeCache = new();
+
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         await topologyInitializer.InitializeAsync(stoppingToken);
@@ -36,7 +39,7 @@ public class OutboxPublisherWorker(
             {
                 try
                 {
-                    var eventType = Type.GetType(outboxEvent.Type ?? "");
+                    var eventType = GetEventType(outboxEvent.Type);
                     if (eventType is null || !typeof(IntegrationEvent).IsAssignableFrom(eventType))
                         throw new InvalidOperationException(
                             $"Type {outboxEvent.Type} is not a valid IntegrationEvent.");
@@ -67,5 +70,13 @@ public class OutboxPublisherWorker(
             await dbContext.SaveChangesAsync(stoppingToken);
             await Task.Delay(TimeSpan.FromSeconds(10), stoppingToken);
         }
+    }
+
+    private static Type? GetEventType(string typeName)
+    {
+        return TypeCache.GetOrAdd(typeName,
+            t => AppDomain.CurrentDomain.GetAssemblies()
+                .SelectMany(a => a.GetTypes())
+                .FirstOrDefault(type => type.FullName == t));
     }
 }
