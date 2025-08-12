@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Learnify.Catalog.Sync.Courses", "src\Learnify.Catalog.Sync.Courses\Learnify.Catalog.Sync.Courses.csproj", "{1899267D-865B-4007-B0CD-C1910C358565}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Learnify.Catalog.WebApi", "src\Learnify.Catalog.WebApi\Learnify.Catalog.WebApi.csproj", "{A1460DBF-FE4F-4816-830F-5578CBDD7480}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Learnify.Catalog.Infrastructure", "src\Learnify.Catalog.Infrastructure\Learnify.Catalog.Infrastructure.csproj", "{B26B81F1-5E44-4CA7-B3AB-42C05FE6E5EC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Learnify.Catalog.Core", "src\Learnify.Catalog.Core\Learnify.Catalog.Core.csproj", "{2CB4D89A-20B8-464A-B84C-7A43136EA86D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - Presentation", "1 - Presentation", "{AFEBFE48-38BC-4550-8BF0-70BBD76A2AAA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2 - Core", "2 - Core", "{EE660CA2-8B25-4F5C-B159-A952D9B647A5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 - Infrastructure", "3 - Infrastructure", "{7FB6F2BF-7A63-46CC-AA95-053228C04638}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1899267D-865B-4007-B0CD-C1910C358565}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1899267D-865B-4007-B0CD-C1910C358565}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1899267D-865B-4007-B0CD-C1910C358565}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1899267D-865B-4007-B0CD-C1910C358565}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1460DBF-FE4F-4816-830F-5578CBDD7480}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1460DBF-FE4F-4816-830F-5578CBDD7480}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1460DBF-FE4F-4816-830F-5578CBDD7480}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1460DBF-FE4F-4816-830F-5578CBDD7480}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B26B81F1-5E44-4CA7-B3AB-42C05FE6E5EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B26B81F1-5E44-4CA7-B3AB-42C05FE6E5EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B26B81F1-5E44-4CA7-B3AB-42C05FE6E5EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B26B81F1-5E44-4CA7-B3AB-42C05FE6E5EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2CB4D89A-20B8-464A-B84C-7A43136EA86D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CB4D89A-20B8-464A-B84C-7A43136EA86D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CB4D89A-20B8-464A-B84C-7A43136EA86D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CB4D89A-20B8-464A-B84C-7A43136EA86D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{2CB4D89A-20B8-464A-B84C-7A43136EA86D} = {EE660CA2-8B25-4F5C-B159-A952D9B647A5}
+		{B26B81F1-5E44-4CA7-B3AB-42C05FE6E5EC} = {7FB6F2BF-7A63-46CC-AA95-053228C04638}
+		{1899267D-865B-4007-B0CD-C1910C358565} = {AFEBFE48-38BC-4550-8BF0-70BBD76A2AAA}
+		{A1460DBF-FE4F-4816-830F-5578CBDD7480} = {AFEBFE48-38BC-4550-8BF0-70BBD76A2AAA}
+	EndGlobalSection
+EndGlobal
