@@ -1,11 +1,11 @@
-using Learnify.Courses.Infrastructure.Messaging.Abstractions;
-using Learnify.Courses.Infrastructure.Messaging.RabbitMQ.Settings;
+using Learnify.Messaging.Abstractions;
+using Learnify.Messaging.RabbitMQ.Settings;
 
 using Microsoft.Extensions.Options;
 
 using RabbitMQ.Client;
 
-namespace Learnify.Courses.Infrastructure.Messaging.RabbitMQ.Topology;
+namespace Learnify.Messaging.RabbitMQ.Topology;
 
 internal sealed class RabbitMqTopologyInitializer(
     ConnectionFactory connectionFactory,

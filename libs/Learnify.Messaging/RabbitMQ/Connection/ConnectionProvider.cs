@@ -1,6 +1,6 @@
 using RabbitMQ.Client;
 
-namespace Learnify.Courses.Infrastructure.Messaging.RabbitMQ.Connection;
+namespace Learnify.Messaging.RabbitMQ.Connection;
 
 internal sealed class ConnectionProvider(IConnection consumerConnection, IConnection producerConnection)
 {

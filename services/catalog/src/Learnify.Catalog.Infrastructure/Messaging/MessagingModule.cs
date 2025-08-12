@@ -1,12 +1,11 @@
-using Learnify.Courses.Infrastructure.Messaging.Mappers;
-using Learnify.Courses.Infrastructure.Messaging.Abstractions;
+using Learnify.Catalog.Core.Abstractions;
+using Learnify.Catalog.Infrastructure.Messaging.Services;
 using Learnify.Messaging;
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-
-namespace Learnify.Courses.Infrastructure.Messaging;
+namespace Learnify.Catalog.Infrastructure.Messaging;
 
 public static class MessagingModule
 {
@@ -17,7 +16,7 @@ public static class MessagingModule
     {
         services.AddMessagingConfiguration(configuration);
 
-        services.AddScoped<IIntegrationEventMessageMapper, IntegrationEventMessageMapper>();
+        services.AddSingleton<IMessageBusService, MessageBusService>();
         return services;
     }
 }

@@ -1,4 +1,4 @@
-namespace Learnify.Courses.Infrastructure.Messaging.Abstractions;
+namespace Learnify.Messaging.Abstractions;
 
 public interface ITopologyInitializer
 {

@@ -2,7 +2,7 @@ using System.Diagnostics;
 
 using OpenTelemetry.Context.Propagation;
 
-namespace Learnify.Courses.Infrastructure.Messaging;
+namespace Learnify.Messaging;
 
 public static class MessagingDiagnostics
 {

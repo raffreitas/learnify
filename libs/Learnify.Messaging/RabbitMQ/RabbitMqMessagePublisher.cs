@@ -1,9 +1,9 @@
 using System.Diagnostics;
 using System.Text.Json;
 
-using Learnify.Courses.Infrastructure.Messaging.Abstractions;
-using Learnify.Courses.Infrastructure.Messaging.RabbitMQ.Connection;
-using Learnify.Courses.Infrastructure.Messaging.RabbitMQ.Settings;
+using Learnify.Messaging.Abstractions;
+using Learnify.Messaging.RabbitMQ.Connection;
+using Learnify.Messaging.RabbitMQ.Settings;
 
 using Microsoft.Extensions.Options;
 
@@ -12,7 +12,7 @@ using OpenTelemetry.Context.Propagation;
 
 using RabbitMQ.Client;
 
-namespace Learnify.Courses.Infrastructure.Messaging.RabbitMQ;
+namespace Learnify.Messaging.RabbitMQ;
 
 internal sealed class RabbitMqMessagePublisher(
     ChannelFactory channelFactory,
@@ -58,7 +58,7 @@ internal sealed class RabbitMqMessagePublisher(
             routingKey: messageSettings.RoutingKey,
             mandatory: true,
             basicProperties: properties,
-            body: JsonSerializer.SerializeToUtf8Bytes(message),
+            body: JsonSerializer.SerializeToUtf8Bytes(message.Payload),
             cancellationToken: cancellationToken
         );
     }
