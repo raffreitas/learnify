@@ -1,3 +1,5 @@
+using Learnify.Contracts.Abstractions;
+
 namespace Learnify.Courses.Application.Abstractions.Events.Abstractions;
 
 public interface IEventOutboxService

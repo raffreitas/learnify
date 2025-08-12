@@ -1,7 +1,7 @@
 using Learnify.Courses.Application.Abstractions.Events;
 using Learnify.Courses.Application.Abstractions.Events.Abstractions;
 using Learnify.Courses.Application.Categories.UseCases.CreateCategory;
-using Learnify.Courses.Application.Courses.Events.EventHandlers;
+using Learnify.Courses.Application.Courses.Events;
 using Learnify.Courses.Application.Courses.UseCases.CreateCourse;
 using Learnify.Courses.Application.Courses.UseCases.CreateModule;
 using Learnify.Courses.Application.Courses.UseCases.CreateLesson;

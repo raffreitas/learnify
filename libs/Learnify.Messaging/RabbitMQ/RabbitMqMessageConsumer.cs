@@ -2,9 +2,9 @@ using System.Diagnostics;
 using System.Text;
 using System.Text.Json;
 
-using Learnify.Courses.Infrastructure.Messaging.Abstractions;
-using Learnify.Courses.Infrastructure.Messaging.RabbitMQ.Connection;
-using Learnify.Courses.Infrastructure.Messaging.RabbitMQ.Settings;
+using Learnify.Messaging.Abstractions;
+using Learnify.Messaging.RabbitMQ.Connection;
+using Learnify.Messaging.RabbitMQ.Settings;
 
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -14,7 +14,7 @@ using OpenTelemetry;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 
-namespace Learnify.Courses.Infrastructure.Messaging.RabbitMQ;
+namespace Learnify.Messaging.RabbitMQ;
 
 internal sealed class RabbitMqMessageConsumer(
     ChannelFactory channelFactory,
@@ -24,16 +24,17 @@ internal sealed class RabbitMqMessageConsumer(
 {
     private readonly RabbitMqMessageSettings _settings = options.Value;
 
-    public async Task ConsumeAsync<TMessage>(Func<TMessage, CancellationToken, Task> handler,
+    public async Task ConsumeAsync<TMessage>(
+        Func<TMessage, CancellationToken, Task> handler,
         CancellationToken cancellationToken = default) where TMessage : IMessage
     {
-        var messageType = typeof(TMessage).Name;
-        var messageSettings = _settings.GetMessageSettings(messageType);
+        var messageType = typeof(TMessage).GetGenericArguments()[0];
+        var messageSettings = _settings.GetMessageSettings(messageType.Name);
 
         var channel = await channelFactory.CreateForConsumerAsync(cancellationToken);
 
         var consumer = new AsyncEventingBasicConsumer(channel);
-        consumer.ReceivedAsync += async (sender, @event) =>
+        consumer.ReceivedAsync += async (_, @event) =>
         {
             var parentContext = MessagingDiagnostics.Propagator.Extract(default,
                 @event.BasicProperties,

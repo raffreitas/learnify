@@ -1,4 +1,4 @@
-namespace Learnify.Courses.Application.Abstractions.Events.Abstractions;
+namespace Learnify.Contracts.Abstractions;
 
 public abstract record IntegrationEvent
 {

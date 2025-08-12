@@ -1,24 +1,28 @@
+using Learnify.Catalog.Core.Abstractions;
+using Learnify.Contracts.Courses;
+using Learnify.Messaging.Abstractions;
+
 namespace Learnify.Catalog.Sync.Courses;
 
-public class Worker : BackgroundService
+internal sealed class Worker(
+    ILogger<Worker> logger,
+    IMessageBusService messageBusService,
+    ITopologyInitializer topologyInitializer
+) : BackgroundService
 {
-    private readonly ILogger<Worker> _logger;
-
-    public Worker(ILogger<Worker> logger)
-    {
-        _logger = logger;
-    }
-
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        while (!stoppingToken.IsCancellationRequested)
-        {
-            if (_logger.IsEnabled(LogLevel.Information))
-            {
-                _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-            }
+        await topologyInitializer.InitializeAsync(stoppingToken);
 
-            await Task.Delay(1000, stoppingToken);
-        }
+        await messageBusService.ConsumeAsync<CoursePublishedIntegrationEvent>((@event, ct) =>
+        {
+            logger.LogInformation(
+                "CouresPublished: {CourseId}, Title: {Title}, Instructor: {InstructorId}",
+                @event.CourseId,
+                @event.Title,
+                @event.InstructorId
+            );
+            return Task.CompletedTask;
+        }, stoppingToken);
     }
 }

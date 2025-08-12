@@ -1,4 +1,7 @@
+using Learnify.Contracts.Abstractions;
 using Learnify.Courses.Application.Abstractions.Events.Abstractions;
+using Learnify.Courses.Infrastructure.Messaging.Adapters;
+using Learnify.Messaging.Abstractions;
 using Learnify.Courses.Infrastructure.Messaging.Abstractions;
 
 namespace Learnify.Courses.Infrastructure.Messaging.Mappers;

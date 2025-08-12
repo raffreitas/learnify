@@ -1,5 +1,6 @@
 using System.Text.Json;
 
+using Learnify.Contracts.Abstractions;
 using Learnify.Courses.Application.Abstractions.Events.Abstractions;
 using Learnify.Courses.Infrastructure.Persistence.Context;
 using Learnify.Courses.Infrastructure.Persistence.Models;

@@ -1,10 +1,10 @@
 using System.Collections.Concurrent;
 using System.Text.Json;
 
-using Learnify.Courses.Application.Abstractions.Events.Abstractions;
+using Learnify.Contracts.Abstractions;
 using Learnify.Courses.Infrastructure.Messaging.Abstractions;
-using Learnify.Courses.Infrastructure.Messaging.Mappers;
 using Learnify.Courses.Infrastructure.Persistence.Context;
+using Learnify.Messaging.Abstractions;
 
 using Microsoft.EntityFrameworkCore;
 

@@ -2,9 +2,9 @@ using System.ComponentModel.DataAnnotations;
 
 using Microsoft.Extensions.Options;
 
-namespace Learnify.Courses.Infrastructure.Messaging.RabbitMQ.Settings;
+namespace Learnify.Messaging.RabbitMQ.Settings;
 
-internal sealed record RabbitMqMessageSettings
+public sealed record RabbitMqMessageSettings
 {
     public const string SectionName = nameof(RabbitMqMessageSettings);
 
@@ -15,13 +15,13 @@ internal sealed record RabbitMqMessageSettings
 
     public MessageSettings GetMessageSettings(string messageKey)
     {
-        return Messages.TryGetValue(messageKey, out MessageSettings? value)
+        return Messages.TryGetValue(messageKey, out var value)
             ? value
             : throw new InvalidOperationException();
     }
 }
 
-internal sealed record MessageSettings
+public sealed record MessageSettings
 {
     [Required, MinLength(1)] public required string ExchangeName { get; init; }
 

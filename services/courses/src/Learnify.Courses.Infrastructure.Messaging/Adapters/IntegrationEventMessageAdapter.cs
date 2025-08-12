@@ -1,7 +1,7 @@
-using Learnify.Courses.Application.Abstractions.Events.Abstractions;
-using Learnify.Courses.Infrastructure.Messaging.Abstractions;
+using Learnify.Contracts.Abstractions;
+using Learnify.Messaging.Abstractions;
 
-namespace Learnify.Courses.Infrastructure.Messaging.Mappers;
+namespace Learnify.Courses.Infrastructure.Messaging.Adapters;
 
 public sealed class IntegrationEventMessageAdapter(IntegrationEvent integrationEvent) : IMessage
 {

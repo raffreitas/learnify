@@ -10,4 +10,12 @@
     <ItemGroup>
         <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.8"/>
     </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Learnify.Catalog.Core\Learnify.Catalog.Core.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Learnify.Catalog.Infrastructure\Learnify.Catalog.Infrastructure.csproj" />
+    </ItemGroup>
 </Project>
