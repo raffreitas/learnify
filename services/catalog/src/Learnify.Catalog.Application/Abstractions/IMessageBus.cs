@@ -1,6 +1,6 @@
 using Learnify.Contracts.Abstractions;
 
-namespace Learnify.Catalog.Core.Abstractions;
+namespace Learnify.Catalog.Application.Abstractions;
 
 public interface IMessageBusService
 {

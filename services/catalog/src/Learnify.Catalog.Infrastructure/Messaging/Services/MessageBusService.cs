@@ -1,6 +1,6 @@
 using System.Text.Json;
 
-using Learnify.Catalog.Core.Abstractions;
+using Learnify.Catalog.Application.Abstractions;
 using Learnify.Catalog.Infrastructure.Messaging.Adapters;
 using Learnify.Contracts.Abstractions;
 using Learnify.Messaging.Abstractions;

@@ -32,4 +32,7 @@ app.MapControllers();
 
 await app.RunAsync();
 
-public abstract partial class Program { }
+namespace Learnify.Courses.WebApi
+{
+    public abstract partial class Program { }
+}

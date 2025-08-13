@@ -12,10 +12,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Learnify.Catalog.Core\Learnify.Catalog.Core.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
+      <ProjectReference Include="..\Learnify.Catalog.Application\Learnify.Catalog.Application.csproj" />
       <ProjectReference Include="..\Learnify.Catalog.Infrastructure\Learnify.Catalog.Infrastructure.csproj" />
     </ItemGroup>
 </Project>

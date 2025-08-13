@@ -1,4 +1,4 @@
-namespace Learnify.Catalog.WebApi.Features.CreateCourse;
+namespace Learnify.Catalog.Application.UseCases.CreateCourse;
 
 public sealed record CreateCourseRequest
 {

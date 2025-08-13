@@ -1,11 +1,9 @@
-using Learnify.Courses.Application.Abstractions;
 using Learnify.Courses.Application.Abstractions.Events.Abstractions;
 using Learnify.Courses.Application.Abstractions.Persistence;
 using Learnify.Courses.Application.Abstractions.Storage;
 using Learnify.Courses.Application.Courses.Abstractions;
 using Learnify.Courses.Domain.Aggregates.Categories.Repositories;
 using Learnify.Courses.Domain.Aggregates.Courses.Repositories;
-using Learnify.Courses.Infrastructure.Persistence;
 using Learnify.Courses.Infrastructure.Persistence.Context;
 using Learnify.Courses.Infrastructure.Persistence.Interceptors;
 using Learnify.Courses.Infrastructure.Persistence.Queries;
