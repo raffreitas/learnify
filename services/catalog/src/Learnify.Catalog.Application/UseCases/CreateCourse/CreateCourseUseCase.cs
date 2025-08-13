@@ -4,7 +4,7 @@ using Learnify.Catalog.Core.Entities;
 using Learnify.Catalog.Core.Enums;
 using Learnify.Catalog.Core.Repositories;
 
-namespace Learnify.Catalog.WebApi.Features.CreateCourse;
+namespace Learnify.Catalog.Application.UseCases.CreateCourse;
 
 internal class CreateCourseUseCase(ICourseRepository courseRepository) : ICreateCourseUseCase
 {

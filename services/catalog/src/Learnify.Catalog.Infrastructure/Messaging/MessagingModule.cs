@@ -1,4 +1,4 @@
-using Learnify.Catalog.Core.Abstractions;
+using Learnify.Catalog.Application.Abstractions;
 using Learnify.Catalog.Infrastructure.Messaging.Services;
 using Learnify.Messaging;
 

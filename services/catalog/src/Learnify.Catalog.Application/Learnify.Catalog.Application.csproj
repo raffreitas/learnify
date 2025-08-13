@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="FluentResults" Version="4.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\..\libs\Learnify.Contracts\Learnify.Contracts.csproj" />
+      <ProjectReference Include="..\Learnify.Catalog.Domain\Learnify.Catalog.Domain.csproj" />
+    </ItemGroup>
+
+</Project>

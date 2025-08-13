@@ -15,7 +15,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\..\..\libs\Learnify.Messaging\Learnify.Messaging.csproj" />
-      <ProjectReference Include="..\Learnify.Catalog.Core\Learnify.Catalog.Core.csproj" />
+      <ProjectReference Include="..\Learnify.Catalog.Application\Learnify.Catalog.Application.csproj" />
     </ItemGroup>
 
 </Project>

@@ -3,6 +3,7 @@ using DotNet.Testcontainers.Builders;
 using Learnify.Courses.Infrastructure.Persistence.Context;
 using Learnify.Courses.Infrastructure.Persistence.Settings;
 using Learnify.Courses.Infrastructure.Storage.Settings;
+using Learnify.Courses.WebApi;
 
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
