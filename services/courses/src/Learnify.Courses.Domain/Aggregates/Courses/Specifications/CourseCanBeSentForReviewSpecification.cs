@@ -12,5 +12,7 @@ internal sealed class CourseCanBeSentForReviewSpecification : ISpecification<Cou
     ];
 
     public bool IsSatisfiedBy(Course entity)
-        => _specifications.All(spec => spec.IsSatisfiedBy(entity));
+    {
+        return _specifications.All(spec => spec.IsSatisfiedBy(entity));
+    }
 }

@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <InternalsVisibleTo Include="Learnify.Courses.UnitTests" />
+    <InternalsVisibleTo Include="Learnify.Courses.IntegrationTests" />
+  </ItemGroup>
+
 </Project>

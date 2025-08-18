@@ -6,8 +6,7 @@ internal sealed class CourseMustHaveBasicInfoSpecification : ISpecification<Cour
 {
     public bool IsSatisfiedBy(Course entity)
     {
-        return !entity.Equals(null)
-               && !string.IsNullOrWhiteSpace(entity.Title)
+        return !string.IsNullOrWhiteSpace(entity.Title)
                && !string.IsNullOrWhiteSpace(entity.Description)
                && !string.IsNullOrWhiteSpace(entity.ImageUrl)
                && entity.InstructorId != Guid.Empty

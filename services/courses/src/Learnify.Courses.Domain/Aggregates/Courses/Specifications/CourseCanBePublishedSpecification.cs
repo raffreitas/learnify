@@ -7,6 +7,8 @@ internal sealed class CourseCanBePublishedSpecification : ISpecification<Course>
     private readonly CourseCanBeSentForReviewSpecification _internalSpec = new();
 
     public bool IsSatisfiedBy(Course entity)
-        => _internalSpec.IsSatisfiedBy(entity)
-           && entity is { IsRevised: true };
+    {
+        return _internalSpec.IsSatisfiedBy(entity)
+               && entity is { IsRevised: true };
+    }
 }
