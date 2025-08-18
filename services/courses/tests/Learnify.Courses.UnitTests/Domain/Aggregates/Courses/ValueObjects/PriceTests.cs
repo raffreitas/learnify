@@ -5,7 +5,7 @@ using Shouldly;
 
 namespace Learnify.Courses.UnitTests.Domain.Aggregates.Courses.ValueObjects;
 
-[Trait("UnitTests", "Domain - Aggregates")]
+[Trait("UnitTests", "Domain - ValueObjects")]
 public sealed class PriceTests
 {
     [Fact(DisplayName = nameof(Create_Should_Returns_Price))]
