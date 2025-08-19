@@ -17,7 +17,7 @@ public sealed class CourseTests(CourseTestFixture fixture) : IClassFixture<Cours
     public void Create_Should_Return_Valid_Course()
     {
         // Arrange
-        var instructorId = Guid.NewGuid();
+        var instructorId = InstructorId.Create(Guid.NewGuid());
         var title = fixture.Faker.Commerce.ProductName();
         var description = fixture.Faker.Commerce.ProductDescription();
         var imageUrl = fixture.Faker.Internet.Url();
@@ -39,7 +39,7 @@ public sealed class CourseTests(CourseTestFixture fixture) : IClassFixture<Cours
 
         // Assert
         course.ShouldNotBeNull();
-        course.InstructorId.ShouldBe(instructorId);
+        course.Instructor.ShouldBe(instructorId);
         course.Title.ShouldBe(title);
         course.Description.ShouldBe(description);
         course.ImageUrl.ShouldBe(imageUrl);
@@ -53,7 +53,7 @@ public sealed class CourseTests(CourseTestFixture fixture) : IClassFixture<Cours
     public void Create_Should_Throw_Exception_When_Missing_Required_Fields()
     {
         // Arrange
-        var instructorId = Guid.NewGuid();
+        var instructorId = InstructorId.Create(Guid.NewGuid());
         var title = "";
         var description = "";
         var imageUrl = "";
@@ -81,7 +81,7 @@ public sealed class CourseTests(CourseTestFixture fixture) : IClassFixture<Cours
     public void CreateAsDraft_Should_Return_Valid_Draft_Course()
     {
         // Arrange
-        var instructorId = Guid.NewGuid();
+        var instructorId = InstructorId.Create(Guid.NewGuid());
         var title = fixture.Faker.Commerce.ProductName();
 
         // Act
@@ -89,7 +89,7 @@ public sealed class CourseTests(CourseTestFixture fixture) : IClassFixture<Cours
 
         // Assert
         course.ShouldNotBeNull();
-        course.InstructorId.ShouldBe(instructorId);
+        course.Instructor.ShouldBe(instructorId);
         course.Title.ShouldBe(title);
         course.Status.ShouldBe(CourseStatus.Draft);
         course.Description.ShouldBe(string.Empty);
@@ -102,7 +102,7 @@ public sealed class CourseTests(CourseTestFixture fixture) : IClassFixture<Cours
     public void CreateAsDraft_Should_Throw_Exception_When_Title_Is_Missing()
     {
         // Arrange
-        var instructorId = Guid.NewGuid();
+        var instructorId = InstructorId.Create(Guid.NewGuid());
         var title = "";
 
         // Act & Assert

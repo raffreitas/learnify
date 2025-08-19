@@ -19,7 +19,7 @@ public sealed record CourseApprovedDomainEvent : DomainEvent
 
     public static CourseApprovedDomainEvent FromAggregate(Course course) => new(
         course.Id,
-        course.InstructorId,
+        course.Instructor,
         course.Title
     );
 }

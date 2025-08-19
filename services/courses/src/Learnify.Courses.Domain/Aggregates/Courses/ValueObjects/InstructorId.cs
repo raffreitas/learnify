@@ -3,18 +3,20 @@ using Learnify.Courses.Domain.SeedWork;
 
 namespace Learnify.Courses.Domain.Aggregates.Courses.ValueObjects;
 
-public sealed record CategoryId : IValueObject
+public record InstructorId : IValueObject
 {
     public Guid Value { get; private init; }
 
-    private CategoryId(Guid value)
+    private InstructorId(Guid value)
     {
         Value = value;
     }
 
-    public static CategoryId Create(Guid value)
+    public static InstructorId Create(Guid value)
     {
         DomainException.ThrowIfEmpty(value, nameof(value));
-        return new CategoryId(value);
+        return new InstructorId(value);
     }
-}
+
+    public static implicit operator Guid(InstructorId instructorId) => instructorId.Value;
+};
