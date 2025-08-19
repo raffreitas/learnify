@@ -4,8 +4,10 @@ using Learnify.Courses.Application.Abstractions;
 using Learnify.Courses.Application.Abstractions.Persistence;
 using Learnify.Courses.Application.Courses.Errors;
 using Learnify.Courses.Application.Shared.Extensions;
+using Learnify.Courses.Domain.Aggregates.Courses.Entities;
 using Learnify.Courses.Domain.Aggregates.Courses.Models;
 using Learnify.Courses.Domain.Aggregates.Courses.Repositories;
+using Learnify.Courses.Domain.Aggregates.Courses.ValueObjects;
 
 namespace Learnify.Courses.Application.Courses.UseCases.UpdateLesson;
 
@@ -25,7 +27,9 @@ public sealed class UpdateLessonUseCase(ICourseRepository courseRepository, IUni
         if (course.IsInReview || course.IsDeleted)
             return Result.Fail(CoursesErrors.ModuleCannotBeAdded(""));
 
-        var info = new LessonInfo(request.Title, request.Description, request.VideoUrl, request.Order, request.IsPublic);
+        var lessonMedia = LessonMedia.Create(MediaAssetId.Create(Guid.CreateVersion7()));
+
+        var info = new LessonInfo(request.Title, request.Description, lessonMedia, request.Order, request.IsPublic);
         course.UpdateLesson(request.ModuleId, request.LessonId, info);
 
         await courseRepository.UpdateAsync(course, cancellationToken);

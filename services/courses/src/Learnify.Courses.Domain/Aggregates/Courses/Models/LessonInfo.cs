@@ -1,9 +1,11 @@
-﻿namespace Learnify.Courses.Domain.Aggregates.Courses.Models;
+﻿using Learnify.Courses.Domain.Aggregates.Courses.Entities;
+
+namespace Learnify.Courses.Domain.Aggregates.Courses.Models;
 
 public sealed record LessonInfo(
     string Title,
     string Description,
-    string VideoUrl,
+    LessonMedia Media,
     int Order,
     bool IsPublic
 );

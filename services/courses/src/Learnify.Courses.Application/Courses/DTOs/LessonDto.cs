@@ -7,7 +7,7 @@ public sealed record LessonDto
     public required Guid Id { get; init; }
     public required string Title { get; init; }
     public required string Description { get; init; }
-    public required string VideoUrl { get; init; }
+    // public required string VideoUrl { get; init; }
     public required int Order { get; init; }
     public required bool IsPublic { get; init; }
 
@@ -18,6 +18,6 @@ public sealed record LessonDto
         Order = lesson.Order,
         Description = lesson.Description,
         IsPublic = lesson.IsPublic,
-        VideoUrl = lesson.VideoUrl,
+        // VideoUrl = lesson.VideoUrl,
     };
 }

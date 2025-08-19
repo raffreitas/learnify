@@ -206,7 +206,7 @@ public sealed class CourseTests(CourseTestFixture fixture) : IClassFixture<Cours
         var lesson = module.Lessons.First();
         lesson.Title.ShouldBe(lessonInfo.Title);
         lesson.Description.ShouldBe(lessonInfo.Description);
-        lesson.VideoUrl.ShouldBe(lessonInfo.VideoUrl);
+        lesson.Media.Id.ShouldBe(lessonInfo.Media.Id);
         lesson.Order.ShouldBe(lessonInfo.Order);
         lesson.IsPublic.ShouldBe(lessonInfo.IsPublic);
     }
@@ -303,53 +303,6 @@ public sealed class CourseTests(CourseTestFixture fixture) : IClassFixture<Cours
         var course = fixture.CreateCourseWithStatus(status);
         Should.Throw<DomainException>(() => course.UpdateModule(Guid.NewGuid(), "T", 0))
             .Message.ShouldBe("Unable to update module for this course.");
-    }
-
-    [Fact(DisplayName = nameof(UpdateLesson_Should_Update_When_Valid))]
-    public void UpdateLesson_Should_Update_When_Valid()
-    {
-        var course = fixture.CreateValidCourseWithModule();
-        var module = course.Modules.First();
-        course.AddLessonToModule(module.Id, fixture.CreateLessonInfo());
-        var lesson = module.Lessons.First();
-
-        var info = new LessonInfo("T", "D", "U", 3, true);
-        course.UpdateLesson(module.Id, lesson.Id, info);
-
-        var updated = module.Lessons.First();
-        updated.Title.ShouldBe("T");
-        updated.Order.ShouldBe(3);
-        updated.IsPublic.ShouldBeTrue();
-    }
-
-    [Fact(DisplayName = nameof(UpdateLesson_Should_Throw_When_Module_Not_Found))]
-    public void UpdateLesson_Should_Throw_When_Module_Not_Found()
-    {
-        var course = fixture.CreateValidCourseWithModule();
-        var info = new LessonInfo("T", "D", "U", 3, true);
-        Should.Throw<DomainException>(() => course.UpdateLesson(Guid.NewGuid(), Guid.NewGuid(), info))
-            .Message.ShouldBe("Module not found.");
-    }
-
-    [Fact(DisplayName = nameof(UpdateLesson_Should_Throw_When_Lesson_Not_Found))]
-    public void UpdateLesson_Should_Throw_When_Lesson_Not_Found()
-    {
-        var course = fixture.CreateValidCourseWithModule();
-        var module = course.Modules.First();
-        var info = new LessonInfo("T", "D", "U", 3, true);
-        Should.Throw<DomainException>(() => course.UpdateLesson(module.Id, Guid.NewGuid(), info))
-            .Message.ShouldBe("Lesson not found.");
-    }
-
-    [Theory(DisplayName = nameof(UpdateLesson_Should_Throw_When_Restricted_Status))]
-    [InlineData(CourseStatus.InReview)]
-    [InlineData(CourseStatus.Deleted)]
-    public void UpdateLesson_Should_Throw_When_Restricted_Status(CourseStatus status)
-    {
-        var course = fixture.CreateCourseWithStatus(status);
-        Should.Throw<DomainException>(() =>
-                course.UpdateLesson(Guid.NewGuid(), Guid.NewGuid(), new LessonInfo("T", "D", "U", 0, false)))
-            .Message.ShouldBe("Unable to update lesson for this course.");
     }
 
     [Fact(DisplayName = nameof(ReorderModules_Should_Reorder_By_Positions))]

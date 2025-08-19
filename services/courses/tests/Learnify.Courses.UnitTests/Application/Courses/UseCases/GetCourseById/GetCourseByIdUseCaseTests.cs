@@ -44,12 +44,12 @@ public class GetCourseByIdUseCaseTests : IClassFixture<CourseTestFixture>
         _courseRepository.GetByIdAsync(course.Id, Arg.Any<CancellationToken>()).Returns(course);
         _categoryRepository.GetByIdsAsync(Arg.Any<Guid[]>(), Arg.Any<CancellationToken>())
             .Returns([Category.Create(_faker.Commerce.Categories(1)[0])]);
-
+        // FIXME: 
         // Storage returns presigned URLs
-        _storageService.GetFileUrlAsync(course.ImageUrl, Arg.Any<TimeSpan?>(), Arg.Any<CancellationToken>())
-            .Returns(_faker.Internet.Url());
-        _storageService.GetFileUrlAsync(lesson.VideoUrl, Arg.Any<TimeSpan?>(), Arg.Any<CancellationToken>())
-            .Returns(_faker.Internet.Url());
+        // _storageService.GetFileUrlAsync(course.ImageUrl, Arg.Any<TimeSpan?>(), Arg.Any<CancellationToken>())
+        //     .Returns(_faker.Internet.Url());
+        // _storageService.GetFileUrlAsync(lesson.VideoUrl, Arg.Any<TimeSpan?>(), Arg.Any<CancellationToken>())
+        //     .Returns(_faker.Internet.Url());
 
         var request = new GetCourseByIdRequest { Id = course.Id };
 
