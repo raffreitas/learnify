@@ -8,7 +8,7 @@ public interface ICourseRepository
     Task AddAsync(Course course, CancellationToken cancellationToken = default);
     Task UpdateAsync(Course course, CancellationToken cancellationToken = default);
     Task DeleteAsync(Guid id, CancellationToken cancellationToken = default);
-    Task<Course> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
+    Task<Course?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
     Task<IReadOnlyCollection<Course>> GetAllAsync(CancellationToken cancellationToken = default);
 
     Task<IReadOnlyCollection<Course>> GetByInstructorIdAsync(

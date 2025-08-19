@@ -1,7 +1,7 @@
 namespace Learnify.Catalog.Core.Entities;
 
-public sealed class Category
+public sealed class Category(Guid id, string name)
 {
-    public required Guid Id { get; set; }
-    public required string Name { get; set; }
+    public Guid Id { get; private set; } = id;
+    public string Name { get; private set; } = name;
 }

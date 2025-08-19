@@ -11,8 +11,11 @@ internal class CreateCourseUseCase(ICourseRepository courseRepository) : ICreate
     public async Task<Result> ExecuteAsync(CreateCourseRequest request, CancellationToken cancellationToken = default)
     {
         // TODO: Validar se o curso já existe
-        // Ir até o MS de course para buscar o restante das informações do courso
-        // Ir até o MS de course para buscar o restante das informações do instrutor
+        // Buscar nos outros MS os dados do curso para compor o objeto de Course
+
+        var courseExists = await courseRepository.GetByIdAsync(request.CourseId, cancellationToken);
+        if (courseExists is not null)
+            return Result.Fail("Course with the given ID already exists.");
 
         var course = new Course
         {

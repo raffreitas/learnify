@@ -26,7 +26,7 @@ internal sealed class CourseRepository(IMongoDatabase database) : ICourseReposit
     public async Task DeleteAsync(Guid id, CancellationToken cancellationToken = default)
         => await _collection.DeleteOneAsync(c => c.Id == id, cancellationToken);
 
-    public async Task<Course> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
+    public async Task<Course?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
         => await _collection.Find(c => c.Id == id).FirstOrDefaultAsync(cancellationToken);
 
     public async Task<IReadOnlyCollection<Course>> GetAllAsync(CancellationToken cancellationToken = default)
