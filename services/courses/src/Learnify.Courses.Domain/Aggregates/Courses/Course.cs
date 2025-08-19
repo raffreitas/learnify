@@ -14,7 +14,7 @@ public sealed class Course : AggregateRoot
     private readonly List<Module> _modules = [];
     private readonly List<CategoryId> _categories = [];
 
-    public Guid InstructorId { get; private set; }
+    public InstructorId Instructor { get; private set; }
     public string Title { get; private set; }
     public string Description { get; private set; }
     public string ImageUrl { get; private set; }
@@ -40,7 +40,7 @@ public sealed class Course : AggregateRoot
     #endregion
 
     private Course(
-        Guid instructorId,
+        InstructorId instructor,
         string title,
         string description,
         string imageUrl,
@@ -50,7 +50,7 @@ public sealed class Course : AggregateRoot
         CourseStatus status
     )
     {
-        InstructorId = instructorId;
+        Instructor = instructor;
         Title = title;
         Description = description;
         ImageUrl = imageUrl;
@@ -62,7 +62,7 @@ public sealed class Course : AggregateRoot
     }
 
     public static Course Create(
-        Guid instructorId,
+        InstructorId instructor,
         string title,
         string description,
         string imageUrl,
@@ -72,7 +72,7 @@ public sealed class Course : AggregateRoot
         CourseStatus status
     )
     {
-        var course = new Course(instructorId, title, description, imageUrl, price, language, difficultyLevel, status);
+        var course = new Course(instructor, title, description, imageUrl, price, language, difficultyLevel, status);
 
         var canBeCreatedSpecification = new CourseMustHaveBasicInfoSpecification();
         if (!canBeCreatedSpecification.IsSatisfiedBy(course))
@@ -81,10 +81,10 @@ public sealed class Course : AggregateRoot
         return course;
     }
 
-    public static Course CreateAsDraft(Guid instructorId, string title)
+    public static Course CreateAsDraft(InstructorId instructor, string title)
     {
         var course = new Course(
-            instructorId,
+            instructor,
             title,
             string.Empty,
             string.Empty,

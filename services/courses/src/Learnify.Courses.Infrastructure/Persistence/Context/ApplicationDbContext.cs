@@ -29,6 +29,8 @@ public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> 
         modelBuilder.ApplyConfiguration(new LessonConfiguration());
 
         modelBuilder.ApplyConfiguration(new CategoryConfiguration());
+        
+        modelBuilder.ApplyConfiguration(new InstructorConfiguration());
 
         base.OnModelCreating(modelBuilder);
     }

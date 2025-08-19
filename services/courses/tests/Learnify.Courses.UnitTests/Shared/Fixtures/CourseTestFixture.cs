@@ -15,7 +15,7 @@ public sealed class CourseTestFixture
     public Course CreateValidCourse()
     {
         return Course.Create(
-            Guid.NewGuid(),
+            InstructorId.Create(Guid.NewGuid()),
             Faker.Commerce.ProductName(),
             Faker.Commerce.ProductDescription(),
             Faker.Internet.Url(),
@@ -29,7 +29,7 @@ public sealed class CourseTestFixture
     public Course CreateCourseWithStatus(CourseStatus status)
     {
         return Course.Create(
-            Guid.NewGuid(),
+            InstructorId.Create(Guid.NewGuid()),
             Faker.Commerce.ProductName(),
             Faker.Commerce.ProductDescription(),
             Faker.Internet.Url(),
@@ -77,7 +77,7 @@ public sealed class CourseTestFixture
     /// Uses reflection to bypass the validation in Course.Create()
     /// </summary>
     public Course CreateCourseWithInvalidBasicInfo(
-        Guid? instructorId = null,
+        InstructorId? instructorId = null,
         string? title = null,
         string? description = null,
         string? imageUrl = null,
@@ -92,8 +92,8 @@ public sealed class CourseTestFixture
         // Use reflection to set invalid properties
         var type = typeof(Course);
 
-        if (instructorId.HasValue)
-            type.GetProperty(nameof(Course.InstructorId))?.SetValue(course, instructorId.Value);
+        if (instructorId != null)
+            type.GetProperty(nameof(Course.Instructor))?.SetValue(course, instructorId.Value);
 
         if (title != null)
             type.GetProperty(nameof(Course.Title))?.SetValue(course, title);

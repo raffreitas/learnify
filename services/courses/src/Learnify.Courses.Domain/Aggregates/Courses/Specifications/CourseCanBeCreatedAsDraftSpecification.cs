@@ -6,7 +6,6 @@ internal sealed class CourseCanBeCreatedAsDraftSpecification : ISpecification<Co
 {
     public bool IsSatisfiedBy(Course entity)
     {
-        return entity.InstructorId != Guid.Empty &&
-               !string.IsNullOrWhiteSpace(entity.Title);
+        return !string.IsNullOrWhiteSpace(entity.Title);
     }
 }

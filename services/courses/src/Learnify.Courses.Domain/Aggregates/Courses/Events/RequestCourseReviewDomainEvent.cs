@@ -29,7 +29,7 @@ public sealed record RequestCourseReviewDomainEvent : DomainEvent
 
     public static RequestCourseReviewDomainEvent FromAggregate(Course course) => new(
         course.Id,
-        course.InstructorId,
+        course.Instructor,
         course.Title,
         course.Description,
         course.Price

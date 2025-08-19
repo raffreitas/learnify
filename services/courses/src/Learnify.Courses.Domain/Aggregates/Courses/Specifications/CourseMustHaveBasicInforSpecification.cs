@@ -9,7 +9,6 @@ internal sealed class CourseMustHaveBasicInfoSpecification : ISpecification<Cour
         return !string.IsNullOrWhiteSpace(entity.Title)
                && !string.IsNullOrWhiteSpace(entity.Description)
                && !string.IsNullOrWhiteSpace(entity.ImageUrl)
-               && entity.InstructorId != Guid.Empty
                && entity.DifficultyLevel != default
                && entity.Status != default
                && entity.Price != default;

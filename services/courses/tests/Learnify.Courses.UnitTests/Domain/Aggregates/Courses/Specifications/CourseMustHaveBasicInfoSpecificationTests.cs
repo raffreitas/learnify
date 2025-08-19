@@ -8,7 +8,8 @@ using Shouldly;
 namespace Learnify.Courses.UnitTests.Domain.Aggregates.Courses.Specifications;
 
 [Trait("UnitTests", "Domain - Specifications")]
-public sealed class CourseMustHaveBasicInfoSpecificationTests(CourseTestFixture fixture) : IClassFixture<CourseTestFixture>
+public sealed class CourseMustHaveBasicInfoSpecificationTests(CourseTestFixture fixture)
+    : IClassFixture<CourseTestFixture>
 {
     [Fact(DisplayName = nameof(IsSatisfiedBy_Should_Return_True_When_Course_Has_All_Basic_Information))]
     public void IsSatisfiedBy_Should_Return_True_When_Course_Has_All_Basic_Information()
@@ -69,20 +70,6 @@ public sealed class CourseMustHaveBasicInfoSpecificationTests(CourseTestFixture 
     {
         // Arrange
         var course = fixture.CreateCourseWithInvalidBasicInfo(imageUrl: invalidImageUrl);
-        var specification = new CourseMustHaveBasicInfoSpecification();
-
-        // Act
-        var result = specification.IsSatisfiedBy(course);
-
-        // Assert
-        result.ShouldBeFalse();
-    }
-
-    [Fact(DisplayName = nameof(IsSatisfiedBy_Should_Return_False_When_InstructorId_Is_Empty))]
-    public void IsSatisfiedBy_Should_Return_False_When_InstructorId_Is_Empty()
-    {
-        // Arrange
-        var course = fixture.CreateCourseWithInvalidBasicInfo(instructorId: Guid.Empty);
         var specification = new CourseMustHaveBasicInfoSpecification();
 
         // Act

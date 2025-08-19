@@ -41,7 +41,7 @@ public sealed record CoursePublishedDomainEvent : DomainEvent
 
     public static CoursePublishedDomainEvent FromAggregate(Course course) => new(
         course.Id,
-        course.InstructorId,
+        course.Instructor,
         course.Title,
         course.Description,
         course.Price,

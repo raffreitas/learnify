@@ -1,5 +1,6 @@
 using Learnify.Courses.Domain.Aggregates.Courses;
 using Learnify.Courses.Domain.Aggregates.Courses.ValueObjects;
+using Learnify.Courses.Domain.Aggregates.Instructors;
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -14,7 +15,9 @@ public class CourseConfiguration : IEntityTypeConfiguration<Course>
         builder.Property(x => x.Id)
             .ValueGeneratedNever();
 
-        builder.Property(x => x.InstructorId)
+        builder.Property(x => x.Instructor)
+            .HasColumnName("instructor_id")
+            .HasConversion(x => x.Value, x => InstructorId.Create(x))
             .IsRequired();
 
         builder.Property(x => x.Title)
