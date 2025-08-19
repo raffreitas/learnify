@@ -8,7 +8,7 @@ public sealed class Lesson : Entity
 {
     public string Title { get; private set; }
     public string Description { get; private set; }
-    public string VideoUrl { get; private set; }
+    public LessonMedia Media { get; private set; }
     public int Order { get; private set; }
     public bool IsPublic { get; private set; }
     public Guid ModuleId { get; private set; }
@@ -21,11 +21,11 @@ public sealed class Lesson : Entity
 
     #endregion
 
-    private Lesson(Guid moduleId, string title, string description, string videoUrl, int order, bool isPublic)
+    private Lesson(Guid moduleId, string title, string description, LessonMedia media, int order, bool isPublic)
     {
         Title = title;
         Description = description;
-        VideoUrl = videoUrl;
+        Media = media;
         Order = order;
         IsPublic = isPublic;
         ModuleId = moduleId;
@@ -35,10 +35,10 @@ public sealed class Lesson : Entity
     {
         DomainException.ThrowIfNullOrWhitespace(info.Title, nameof(info.Title));
         DomainException.ThrowIfNullOrWhitespace(info.Description, nameof(info.Description));
-        DomainException.ThrowIfNullOrWhitespace(info.VideoUrl, nameof(info.VideoUrl));
+        DomainException.ThrowIfNull(info.Media, nameof(info.Media));
         DomainException.ThrowIfNegative(info.Order, nameof(info.Order));
 
-        var lesson = new Lesson(moduleId, info.Title, info.Description, info.VideoUrl, info.Order, info.IsPublic);
+        var lesson = new Lesson(moduleId, info.Title, info.Description, info.Media, info.Order, info.IsPublic);
         return lesson;
     }
 
@@ -46,12 +46,12 @@ public sealed class Lesson : Entity
     {
         DomainException.ThrowIfNullOrWhitespace(info.Title, nameof(info.Title));
         DomainException.ThrowIfNullOrWhitespace(info.Description, nameof(info.Description));
-        DomainException.ThrowIfNullOrWhitespace(info.VideoUrl, nameof(info.VideoUrl));
+        DomainException.ThrowIfNull(info.Media, nameof(info.Media));
         DomainException.ThrowIfNegative(info.Order, nameof(info.Order));
 
         Title = info.Title;
         Description = info.Description;
-        VideoUrl = info.VideoUrl;
+        Media = info.Media;
         Order = info.Order;
         IsPublic = info.IsPublic;
         UpdatedAt = DateTimeOffset.UtcNow;

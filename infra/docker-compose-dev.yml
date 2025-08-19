@@ -29,6 +29,16 @@ services:
       interval: 5s
       timeout: 3s
       retries: 30
+  
+  keycloak:
+    image: quay.io/keycloak/keycloak:latest
+    container_name: keycloak
+    ports:
+      - "8080:8080"
+    environment:
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
+    command: start-dev
 
   rabbitmq:
     image: rabbitmq:4-management
@@ -58,13 +68,9 @@ services:
       - MONGODB_DATABASE=mongo_db
     volumes:
       - mongodb_data:/bitnami/mongodb
-    healthcheck:
-      test: ["CMD", "mongo", "--eval", "db.adminCommand('ping')"]
-      interval: 30s
-      timeout: 10s
-      retries: 5
 
 volumes:
   postgresql_data:
   minio_data:
   mongodb_data:
+  keycloak_data:

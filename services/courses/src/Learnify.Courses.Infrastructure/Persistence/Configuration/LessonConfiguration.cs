@@ -1,4 +1,5 @@
 using Learnify.Courses.Domain.Aggregates.Courses.Entities;
+using Learnify.Courses.Domain.Aggregates.Courses.ValueObjects;
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -30,7 +31,22 @@ public class LessonConfiguration : IEntityTypeConfiguration<Lesson>
             .HasDefaultValue(false)
             .IsRequired();
 
-        builder.Property(x => x.VideoUrl)
-            .HasMaxLength(500);
+        builder.ComplexProperty(x => x.Media, mediaBuilder =>
+        {
+            mediaBuilder.Property(x => x.AssetId)
+                .HasConversion(x => x.Value, x => MediaAssetId.Create(x))
+                .IsRequired();
+
+            mediaBuilder.Property(x => x.Status)
+                .HasConversion<string>()
+                .IsRequired()
+                .HasMaxLength(50);
+
+            mediaBuilder.Property(x => x.Duration)
+                .IsRequired();
+
+            mediaBuilder.Property(x => x.FailureReason)
+                .IsRequired(false);
+        });
     }
 }

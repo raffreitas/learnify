@@ -36,23 +36,23 @@ internal sealed class GetCourseByIdUseCase(
 
         var response = GetCourseByIdResponse.FromAggregates(course, [..categories]);
         // TODO: Melhorar esse ponto para não macetar o storage.
-        var mediasUrls = await GetPresignedUrls(course, cancellationToken);
-
-        response = response with
-        {
-            ImageUrl = mediasUrls.GetValueOrDefault(response.ImageUrl) ?? String.Empty,
-            Modules = response.Modules.Select(module => module with
-            {
-                Lessons = module.Lessons.Select(lesson => lesson with
-                {
-                    VideoUrl = mediasUrls.GetValueOrDefault(lesson.VideoUrl, lesson.VideoUrl)
-                }).ToArray()
-            }).ToArray()
-        };
+        // var mediasUrls = await GetPresignedUrls(course, cancellationToken);
+        // response = response with
+        // {
+        //     ImageUrl = mediasUrls.GetValueOrDefault(response.ImageUrl) ?? String.Empty,
+        //     Modules = response.Modules.Select(module => module with
+        //     {
+        //         Lessons = module.Lessons.Select(lesson => lesson with
+        //         {
+        //             VideoUrl = mediasUrls.GetValueOrDefault(lesson.VideoUrl, lesson.VideoUrl)
+        //         }).ToArray()
+        //     }).ToArray()
+        // };
 
         return response;
     }
 
+    /*
     private async Task<Dictionary<string, string>> GetPresignedUrls(Course course, CancellationToken cancellationToken)
     {
         var imageTask = Task.Run(async () =>
@@ -78,4 +78,5 @@ internal sealed class GetCourseByIdUseCase(
 
         return urls.ToDictionary(x => x.Media, x => x.Url);
     }
+     */
 }

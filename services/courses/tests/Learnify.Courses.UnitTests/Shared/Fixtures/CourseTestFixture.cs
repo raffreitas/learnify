@@ -66,7 +66,7 @@ public sealed class CourseTestFixture
         return new LessonInfo(
             Faker.Commerce.ProductName(),
             Faker.Commerce.ProductDescription(),
-            Faker.Internet.Url(),
+            LessonMedia.Create(MediaAssetId.Create(Guid.CreateVersion7())), 
             Faker.Random.Int(1, 10),
             Faker.Random.Bool()
         );

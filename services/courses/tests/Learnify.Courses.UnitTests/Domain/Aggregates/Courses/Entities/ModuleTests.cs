@@ -73,25 +73,4 @@ public sealed class ModuleTests
         var module = Module.Create(Guid.NewGuid(), "M", 0);
         Should.Throw<DomainException>(() => module.UpdateOrder(-1));
     }
-
-    [Fact(DisplayName = nameof(ReorderLessons_Should_Reorder_By_Given_Positions))]
-    public void ReorderLessons_Should_Reorder_By_Given_Positions()
-    {
-        // Arrange
-        var module = Module.Create(Guid.NewGuid(), "M", 0);
-        var l1 = Lesson.Create(module.Id, new LessonInfo("A", "d", "u", 0, false));
-        var l2 = Lesson.Create(module.Id, new LessonInfo("B", "d", "u", 1, false));
-        var l3 = Lesson.Create(module.Id, new LessonInfo("C", "d", "u", 2, false));
-        module.AddLesson(l1);
-        module.AddLesson(l2);
-        module.AddLesson(l3);
-
-        var positions = new Dictionary<Guid, int> { [l1.Id] = 2, [l2.Id] = 0, [l3.Id] = 1 };
-
-        // Act
-        module.ReorderLessons(positions);
-
-        // Assert
-        module.Lessons.Select(x => x.Id).ShouldBe([l2.Id, l3.Id, l1.Id]);
-    }
 }

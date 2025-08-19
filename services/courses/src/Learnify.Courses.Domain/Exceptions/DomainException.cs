@@ -20,6 +20,12 @@ public class DomainException(string message) : Exception(message)
             throw new DomainException($"{paramName} cannot be null or whitespace.");
     }
 
+    public static void ThrowIfNull(object? value, string paramName)
+    {
+        if (value is null)
+            throw new DomainException($"{paramName} cannot be null.");
+    }
+
     public static void ThrowIfNegative(int value, string paramName)
     {
         if (value < 0)
