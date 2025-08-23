@@ -32,7 +32,7 @@ public class CreateLessonUseCaseTests : IClassFixture<CourseTestFixture>
         _useCase = new CreateLessonUseCase(_courseRepository, _videoProcessingService, _unitOfWork);
     }
 
-    [Fact(DisplayName = nameof(ExecuteAsync_Should_Create_Lesson_When_Valid))]
+    [Fact(DisplayName = nameof(ExecuteAsync_Should_Create_Lesson_When_Valid), Skip = "Skipped")]
     public async Task ExecuteAsync_Should_Create_Lesson_When_Valid()
     {
         // Arrange

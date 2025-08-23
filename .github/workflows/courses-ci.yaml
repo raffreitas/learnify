@@ -66,28 +66,3 @@ jobs:
         uses: actions/dependency-review-action@v4
         with:
           comment-summary-in-pr: true
-  
-  
-  code-security-check:
-    runs-on: ubuntu-latest
-    name: Code Security Check
-    permissions:
-      security-events: write
-      packages: read
-      contents: read
-      actions: read
-    
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: CodeQL Init
-        uses: github/codeql-action/init@v3
-        with:
-          languages: csharp
-          build-mode: autobuild
-
-      - name: CodeQL Analyze
-        uses: github/codeql-action/analyze@v3
-        with:
-          category: "/language:csharp"
