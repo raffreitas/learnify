@@ -31,6 +31,14 @@ public class LessonConfiguration : IEntityTypeConfiguration<Lesson>
             .HasDefaultValue(false)
             .IsRequired();
 
+        builder.ComplexProperty(x => x.Slug, slugBuilder =>
+        {
+            slugBuilder.Property(x => x.Value)
+                .HasColumnName("slug")
+                .HasMaxLength(200)
+                .IsRequired();
+        });
+
         builder.ComplexProperty(x => x.Media, mediaBuilder =>
         {
             mediaBuilder.Property(x => x.AssetId)
@@ -43,7 +51,7 @@ public class LessonConfiguration : IEntityTypeConfiguration<Lesson>
                 .HasMaxLength(50);
 
             mediaBuilder.Property(x => x.Duration)
-                .IsRequired();
+                .IsRequired(false);
 
             mediaBuilder.Property(x => x.FailureReason)
                 .IsRequired(false);

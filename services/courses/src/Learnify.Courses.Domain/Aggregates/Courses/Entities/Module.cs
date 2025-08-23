@@ -20,7 +20,7 @@ public sealed class Module : Entity
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
 
     #endregion
-    
+
     private Module(Guid courseId, string title, int order)
     {
         CourseId = courseId;
@@ -43,7 +43,7 @@ public sealed class Module : Entity
         var lesson = Lesson.Create(Id, info);
         _lessons.Add(lesson);
     }
-    
+
     public void AddLesson(Lesson lesson)
     {
         _lessons.Add(lesson);

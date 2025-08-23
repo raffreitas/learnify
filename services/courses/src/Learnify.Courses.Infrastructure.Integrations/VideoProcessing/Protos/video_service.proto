@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+option csharp_namespace = "Learnify.Courses.Infrastructure.Integrations.VideoProcessing";
+
+package video_service;
+
+service VideoService{
+  rpc CreateVideo (CreateVideoRequest) returns (CreateVideoResponse);
+}
+
+message CreateVideoRequest {
+  string file_name = 1;
+}
+
+message CreateVideoResponse {
+  string video_id = 1;
+  string upload_url = 2;
+  int32 upload_expiration = 3;
+}

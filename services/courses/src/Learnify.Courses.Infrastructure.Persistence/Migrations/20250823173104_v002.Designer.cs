@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Learnify.Courses.Infrastructure.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -12,9 +13,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Learnify.Courses.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250823173104_v002")]
+    partial class v002
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -127,15 +130,6 @@ namespace Learnify.Courses.Infrastructure.Persistence.Migrations
                                 .HasColumnName("price_value");
                         });
 
-                    b.ComplexProperty<Dictionary<string, object>>("Slug", "Learnify.Courses.Domain.Aggregates.Courses.Course.Slug#Slug", b1 =>
-                        {
-                            b1.Property<string>("Value")
-                                .IsRequired()
-                                .HasMaxLength(200)
-                                .HasColumnType("character varying(200)")
-                                .HasColumnName("slug");
-                        });
-
                     b.HasKey("Id")
                         .HasName("pk_courses");
 
@@ -218,15 +212,6 @@ namespace Learnify.Courses.Infrastructure.Persistence.Migrations
                             b1.Property<DateTimeOffset>("UpdatedAt")
                                 .HasColumnType("timestamp with time zone")
                                 .HasColumnName("media_updated_at");
-                        });
-
-                    b.ComplexProperty<Dictionary<string, object>>("Slug", "Learnify.Courses.Domain.Aggregates.Courses.Entities.Lesson.Slug#Slug", b1 =>
-                        {
-                            b1.Property<string>("Value")
-                                .IsRequired()
-                                .HasMaxLength(200)
-                                .HasColumnType("character varying(200)")
-                                .HasColumnName("slug");
                         });
 
                     b.HasKey("Id")

@@ -2,7 +2,9 @@ using FluentResults;
 
 using Learnify.Courses.Application.Abstractions;
 using Learnify.Courses.Application.Abstractions.Persistence;
+using Learnify.Courses.Application.Abstractions.VideoProcessing;
 using Learnify.Courses.Application.Courses.Errors;
+using Learnify.Courses.Application.Shared.Errors;
 using Learnify.Courses.Application.Shared.Extensions;
 using Learnify.Courses.Domain.Aggregates.Courses.Entities;
 using Learnify.Courses.Domain.Aggregates.Courses.Models;
@@ -11,8 +13,11 @@ using Learnify.Courses.Domain.Aggregates.Courses.ValueObjects;
 
 namespace Learnify.Courses.Application.Courses.UseCases.CreateLesson;
 
-public sealed class CreateLessonUseCase(ICourseRepository courseRepository, IUnitOfWork unitOfWork)
-    : ICreateLessonUseCase
+public sealed class CreateLessonUseCase(
+    ICourseRepository courseRepository,
+    IVideoProcessingService videoProcessingService,
+    IUnitOfWork unitOfWork
+) : ICreateLessonUseCase
 {
     public async Task<Result<CreateLessonResponse>> ExecuteAsync(CreateLessonRequest request,
         CancellationToken cancellationToken = default)
@@ -28,10 +33,27 @@ public sealed class CreateLessonUseCase(ICourseRepository courseRepository, IUni
         if (course.IsInReview || course.IsDeleted)
             return Result.Fail(CoursesErrors.ModuleCannotBeAdded(""));
 
-        var lessonMedia = LessonMedia.Create(MediaAssetId.Create(Guid.CreateVersion7()));
+        var lessonExists = course.Modules
+            .Where(m => m.Id == request.ModuleId)
+            .SelectMany(m => m.Lessons)
+            .Any(l => l.Title.Equals(request.Title, StringComparison.OrdinalIgnoreCase));
+
+        if (lessonExists)
+            return Result.Fail(new ConflictError("Lesson with this title already exists in the module."));
+
+        var fileSlug = Slug.Generate(request.Title);
+
+        // TODO: Fix hardcoded extension and mime type
+        var fileKey = $"courses/videos/{request.CourseId}/{request.ModuleId}/{fileSlug}.mp4";
+
+        var createVideoResponse = await videoProcessingService
+            .CreateVideoAsync(fileKey, cancellationToken);
+
+        var lessonMedia = LessonMedia.Create(MediaAssetId.Create(createVideoResponse.VideoId));
 
         var info = new LessonInfo(
-            request.Title, request.Description,
+            request.Title,
+            request.Description,
             lessonMedia,
             request.Order,
             request.IsPublic
@@ -45,6 +67,12 @@ public sealed class CreateLessonUseCase(ICourseRepository courseRepository, IUni
         var module = course.Modules.First(m => m.Id == request.ModuleId);
         var lessonId = module.Lessons.OrderByDescending(l => l.CreatedAt).First().Id;
 
-        return Result.Ok(new CreateLessonResponse(lessonId));
+        return Result.Ok(
+            new CreateLessonResponse(
+                lessonId,
+                createVideoResponse.UploadUrl,
+                createVideoResponse.UploadExpiration
+            )
+        );
     }
 }

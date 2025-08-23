@@ -48,6 +48,14 @@ public class CourseConfiguration : IEntityTypeConfiguration<Course>
                 .IsRequired();
         });
 
+        builder.ComplexProperty(x => x.Slug, slugBuilder =>
+        {
+            slugBuilder.Property(x => x.Value)
+                .HasColumnName("slug")
+                .HasMaxLength(200)
+                .IsRequired();
+        });
+
         builder.Property(x => x.Language)
             .HasMaxLength(10)
             .IsRequired();

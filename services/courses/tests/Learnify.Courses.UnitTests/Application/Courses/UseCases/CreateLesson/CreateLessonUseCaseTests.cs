@@ -2,6 +2,7 @@ using Bogus;
 
 using Learnify.Courses.Application.Abstractions;
 using Learnify.Courses.Application.Abstractions.Persistence;
+using Learnify.Courses.Application.Abstractions.VideoProcessing;
 using Learnify.Courses.Application.Courses.UseCases.CreateLesson;
 using Learnify.Courses.Domain.Aggregates.Courses.Repositories;
 using Learnify.Courses.UnitTests.Shared.Fixtures;
@@ -19,6 +20,7 @@ public class CreateLessonUseCaseTests : IClassFixture<CourseTestFixture>
     private readonly Faker _faker = new();
 
     private readonly ICourseRepository _courseRepository = Substitute.For<ICourseRepository>();
+    private readonly IVideoProcessingService _videoProcessingService = Substitute.For<IVideoProcessingService>();
     private readonly IUnitOfWork _unitOfWork = Substitute.For<IUnitOfWork>();
 
     private readonly CreateLessonUseCase _useCase;
@@ -27,7 +29,7 @@ public class CreateLessonUseCaseTests : IClassFixture<CourseTestFixture>
     public CreateLessonUseCaseTests(CourseTestFixture fixture)
     {
         _fixture = fixture;
-        _useCase = new CreateLessonUseCase(_courseRepository, _unitOfWork);
+        _useCase = new CreateLessonUseCase(_courseRepository, _videoProcessingService, _unitOfWork);
     }
 
     [Fact(DisplayName = nameof(ExecuteAsync_Should_Create_Lesson_When_Valid))]
@@ -45,7 +47,6 @@ public class CreateLessonUseCaseTests : IClassFixture<CourseTestFixture>
             ModuleId = moduleId,
             Title = _faker.Commerce.ProductName(),
             Description = _faker.Commerce.ProductDescription(),
-            VideoUrl = _faker.Internet.Url(),
             Order = _faker.Random.Int(0, 10),
             IsPublic = true
         };
@@ -72,7 +73,6 @@ public class CreateLessonUseCaseTests : IClassFixture<CourseTestFixture>
             ModuleId = Guid.NewGuid(),
             Title = _faker.Commerce.ProductName(),
             Description = _faker.Commerce.ProductDescription(),
-            VideoUrl = _faker.Internet.Url(),
             Order = 0,
             IsPublic = false
         };
@@ -94,7 +94,6 @@ public class CreateLessonUseCaseTests : IClassFixture<CourseTestFixture>
             ModuleId = Guid.NewGuid(),
             Title = _faker.Commerce.ProductName(),
             Description = _faker.Commerce.ProductDescription(),
-            VideoUrl = _faker.Internet.Url(),
             Order = 0,
             IsPublic = false
         };
@@ -122,7 +121,6 @@ public class CreateLessonUseCaseTests : IClassFixture<CourseTestFixture>
             ModuleId = moduleId,
             Title = _faker.Commerce.ProductName(),
             Description = _faker.Commerce.ProductDescription(),
-            VideoUrl = _faker.Internet.Url(),
             Order = _faker.Random.Int(0, 10),
             IsPublic = true
         };
