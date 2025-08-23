@@ -1,5 +1,21 @@
 <Solution>
-  <Project Path="src\Learnify.VideoProcessing.Application\Learnify.VideoProcessing.Application.csproj" Type="Classic C#" />
-  <Project Path="src\Learnify.VideoProcessing.Domain\Learnify.VideoProcessing.Domain.csproj" Type="Classic C#" />
-  <Project Path="src\Learnify.VideoProcessing.Infrastructure\Learnify.VideoProcessing.Infrastructure.csproj" Type="Classic C#" />
+  <Folder Name="/0 - Libs/">
+    <Project Path="..\..\libs\Learnify.Contracts\Learnify.Contracts.csproj" Type="Classic C#" />
+    <Project Path="..\..\libs\Learnify.Messaging\Learnify.Messaging.csproj" Type="Classic C#" />
+  </Folder>
+  <Folder Name="/1 - Presentation/">
+    <Project Path="src\Learnify.VideoProcessing.gRPC\Learnify.VideoProcessing.gRPC.csproj" Type="Classic C#" />
+  </Folder>
+  <Folder Name="/2 - Application/">
+    <Project Path="src\Learnify.VideoProcessing.Application\Learnify.VideoProcessing.Application.csproj" Type="Classic C#" />
+  </Folder>
+  <Folder Name="/3 - Domain/">
+    <Project Path="src\Learnify.VideoProcessing.Domain\Learnify.VideoProcessing.Domain.csproj" Type="Classic C#" />
+  </Folder>
+  <Folder Name="/4 - Infrastructure/">
+    <Project Path="src\Learnify.VideoProcessing.Infrastructure.Storaging\Learnify.VideoProcessing.Infrastructure.Storaging.csproj" Type="Classic C#" />
+  </Folder>
+  <Folder Name="/5 - Tests/">
+    <Project Path="tests\Learnify.VideoProcessing.UnitTests\Learnify.VideoProcessing.UnitTests.csproj" Type="Classic C#" />
+  </Folder>
 </Solution>

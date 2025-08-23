@@ -23,4 +23,8 @@
         <InternalsVisibleTo Include="Learnify.Courses.UnitTests"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Abstractions\Storage\" />
+    </ItemGroup>
+
 </Project>
