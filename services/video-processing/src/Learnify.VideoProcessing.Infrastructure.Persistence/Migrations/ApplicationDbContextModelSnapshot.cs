@@ -33,8 +33,8 @@ namespace Learnify.VideoProcessing.Infrastructure.Persistence.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created_at");
 
-                    b.Property<double?>("Duration")
-                        .HasColumnType("double precision")
+                    b.Property<long?>("Duration")
+                        .HasColumnType("bigint")
                         .HasColumnName("duration");
 
                     b.Property<string>("Filename")
