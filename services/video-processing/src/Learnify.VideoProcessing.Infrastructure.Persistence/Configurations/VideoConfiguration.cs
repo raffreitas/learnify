@@ -25,8 +25,8 @@ internal sealed class VideoConfiguration : IEntityTypeConfiguration<Video>
 
         builder.Property(v => v.Duration)
             .HasConversion(
-                d => d.HasValue ? d.Value.TotalSeconds : default(double?),
-                s => s.HasValue ? TimeSpan.FromSeconds(s.Value) : null
+                d => d.HasValue ? d.Value.Ticks : default(long?),
+                t => t.HasValue ? TimeSpan.FromTicks(t.Value) : null
             );
 
         builder.Property(v => v.CreatedAt)
