@@ -18,6 +18,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\Learnify.Courses.Application\Learnify.Courses.Application.csproj"/>
+        <ProjectReference Include="..\Learnify.Courses.Infrastructure.Integrations\Learnify.Courses.Infrastructure.Integrations.csproj" />
         <ProjectReference Include="..\Learnify.Courses.Infrastructure.Persistence\Learnify.Courses.Infrastructure.Persistence.csproj" />
         <ProjectReference Include="..\Learnify.Courses.Infrastructure.Storaging\Learnify.Courses.Infrastructure.Storaging.csproj" />
     </ItemGroup>

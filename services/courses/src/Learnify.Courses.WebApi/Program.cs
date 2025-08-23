@@ -1,4 +1,5 @@
 using Learnify.Courses.Application;
+using Learnify.Courses.Infrastructure.Integrations;
 using Learnify.Courses.Infrastructure.Persistence;
 using Learnify.Courses.Infrastructure.Storaging;
 
@@ -9,7 +10,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services
     .AddApplicationModule()
     .AddPersistenceModule(builder.Configuration)
-    .AddStoragingModule(builder.Configuration);
+    .AddStoragingModule(builder.Configuration)
+    .AddIntegrationsModule(builder.Configuration);
 
 builder.Services.AddControllers();
 

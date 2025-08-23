@@ -130,8 +130,15 @@ public class CoursesController : ControllerBase
     )
     {
         var result = await useCase.ExecuteAsync(model.ToRequest(id, moduleId), cancellationToken);
+
         return result.IsSuccess
-            ? Created("", new { id = result.Value.LessonId })
+            ? Created("",
+                new
+                {
+                    Id = result.Value.LessonId,
+                    UploadUrl = result.Value.UploadUrl,
+                    UploadExpiration = result.Value.UploadExpiresIn
+                })
             : HandleProblem(result);
     }
 

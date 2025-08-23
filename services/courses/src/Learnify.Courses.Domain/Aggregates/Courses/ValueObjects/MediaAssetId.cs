@@ -18,5 +18,11 @@ public sealed record MediaAssetId : IValueObject
         return new MediaAssetId(value);
     }
 
+    public static MediaAssetId Create(string value)
+    {
+        DomainException.ThrowIfNullOrEmpty(value, nameof(value));
+        return new MediaAssetId(Guid.Parse(value));
+    }
+
     public static implicit operator Guid(MediaAssetId mediaAssetId) => mediaAssetId.Value;
 };

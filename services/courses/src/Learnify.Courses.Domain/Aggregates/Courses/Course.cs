@@ -16,6 +16,7 @@ public sealed class Course : AggregateRoot
 
     public InstructorId Instructor { get; private set; }
     public string Title { get; private set; }
+    public Slug Slug { get; private set; }
     public string Description { get; private set; }
     public string ImageUrl { get; private set; }
     public Price Price { get; private set; }
@@ -59,6 +60,7 @@ public sealed class Course : AggregateRoot
         DifficultyLevel = difficultyLevel;
         Status = status;
         IsRevised = false;
+        Slug = Slug.Create(Title);
     }
 
     public static Course Create(
@@ -145,6 +147,12 @@ public sealed class Course : AggregateRoot
 
         var module = _modules.FirstOrDefault(m => m.Id == moduleId)
                      ?? throw new DomainException("Module not found.");
+
+        var lessonExists = module.Lessons
+            .Any(l => l.Title.Equals(info.Title, StringComparison.OrdinalIgnoreCase));
+
+        if (lessonExists)
+            throw new DomainException("Lesson with the same title already exists in this module.");
 
         module.AddLesson(info);
 

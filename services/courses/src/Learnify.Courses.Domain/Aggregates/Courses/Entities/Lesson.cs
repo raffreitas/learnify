@@ -1,4 +1,5 @@
 ﻿using Learnify.Courses.Domain.Aggregates.Courses.Models;
+using Learnify.Courses.Domain.Aggregates.Courses.ValueObjects;
 using Learnify.Courses.Domain.Exceptions;
 using Learnify.Courses.Domain.SeedWork;
 
@@ -7,6 +8,7 @@ namespace Learnify.Courses.Domain.Aggregates.Courses.Entities;
 public sealed class Lesson : Entity
 {
     public string Title { get; private set; }
+    public Slug Slug { get; private set; }
     public string Description { get; private set; }
     public LessonMedia Media { get; private set; }
     public int Order { get; private set; }
@@ -29,6 +31,7 @@ public sealed class Lesson : Entity
         Order = order;
         IsPublic = isPublic;
         ModuleId = moduleId;
+        Slug = Slug.Create(Title);
     }
 
     public static Lesson Create(Guid moduleId, LessonInfo info)
