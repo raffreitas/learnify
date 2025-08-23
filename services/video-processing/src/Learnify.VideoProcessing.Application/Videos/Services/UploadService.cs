@@ -15,9 +15,7 @@ internal sealed class UploadService(IStorageService storageService) : IUploadSer
     {
         var expirationTime = request.ExpirationTime ?? TimeSpan.FromMinutes(15);
         if (expirationTime <= TimeSpan.Zero || expirationTime > TimeSpan.FromHours(12))
-        {
             return Result.Fail(new Error("Expiration time must be between 1 second and 12 hours."));
-        }
 
         var url = await storageService.GetPresignedUploadUrlAsync(
             request.Name,
@@ -25,8 +23,6 @@ internal sealed class UploadService(IStorageService storageService) : IUploadSer
             cancellationToken
         );
 
-        return new GetPresignedUploadUrlResponse(
-            url, request.ExpirationTime ?? TimeSpan.FromMinutes(15)
-        );
+        return new GetPresignedUploadUrlResponse(url, expirationTime);
     }
 }

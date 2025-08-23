@@ -7,16 +7,22 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Protobuf Include="Protos\upload_manager.proto" GrpcServices="Server" />
+        <Protobuf Include="Protos\upload_manager.proto" GrpcServices="Server"/>
+        <Protobuf Include="Protos\video_service.proto" GrpcServices="Server"/>
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Grpc.AspNetCore" Version="2.64.0"/>
+        <PackageReference Include="Grpc.AspNetCore" Version="2.71.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.8">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Learnify.VideoProcessing.Application\Learnify.VideoProcessing.Application.csproj" />
-      <ProjectReference Include="..\Learnify.VideoProcessing.Infrastructure.Storaging\Learnify.VideoProcessing.Infrastructure.Storaging.csproj" />
+        <ProjectReference Include="..\Learnify.VideoProcessing.Application\Learnify.VideoProcessing.Application.csproj"/>
+        <ProjectReference Include="..\Learnify.VideoProcessing.Infrastructure.Persistence\Learnify.VideoProcessing.Infrastructure.Persistence.csproj" />
+        <ProjectReference Include="..\Learnify.VideoProcessing.Infrastructure.Storaging\Learnify.VideoProcessing.Infrastructure.Storaging.csproj"/>
     </ItemGroup>
 
 </Project>
