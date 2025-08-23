@@ -148,10 +148,9 @@ public sealed class Course : AggregateRoot
         var module = _modules.FirstOrDefault(m => m.Id == moduleId)
                      ?? throw new DomainException("Module not found.");
 
-        var lessonExists = module.Lessons
-            .Any(l => l.Title.Equals(info.Title, StringComparison.OrdinalIgnoreCase));
+        var lessonTitles = module.Lessons.Select(l => l.Title).ToHashSet(StringComparer.OrdinalIgnoreCase);
 
-        if (lessonExists)
+        if (lessonTitles.Contains(info.Title))
             throw new DomainException("Lesson with the same title already exists in this module.");
 
         module.AddLesson(info);
