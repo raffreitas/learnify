@@ -7,12 +7,14 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="FluentResults" Version="4.0.0"/>
+        <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="9.0.6"/>
         <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.8"/>
+        <PackageReference Include="Minio" Version="6.0.5"/>
+        <PackageReference Include="OpenLibs.Extensions" Version="1.2.0"/>
     </ItemGroup>
 
     <ItemGroup>
-        <InternalsVisibleTo Include="Learnify.VideoProcessing.UnitTests"/>
+        <ProjectReference Include="..\Learnify.VideoProcessing.Application\Learnify.VideoProcessing.Application.csproj"/>
     </ItemGroup>
 
 </Project>
