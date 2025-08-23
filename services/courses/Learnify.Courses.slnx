@@ -1,0 +1,33 @@
+<Solution>
+    <Folder Name="/0 - Libs/">
+        <Project Path="../../libs/Learnify.Contracts/Learnify.Contracts.csproj"/>
+        <Project Path="../../libs/Learnify.Messaging/Learnify.Messaging.csproj"/>
+    </Folder>
+    <Folder Name="/1 - Presentation/">
+        <Project Path="src/Learnify.Courses.WebApi/Learnify.Courses.WebApi.csproj"/>
+        <Project Path="src/Learnify.Courses.Workers.Outbox/Learnify.Courses.Workers.Outbox.csproj"/>
+    </Folder>
+    <Folder Name="/2 - Application/">
+        <Project Path="src/Learnify.Courses.Application/Learnify.Courses.Application.csproj"/>
+    </Folder>
+    <Folder Name="/3 - Domain/">
+        <Project Path="src/Learnify.Courses.Domain/Learnify.Courses.Domain.csproj"/>
+    </Folder>
+    <Folder Name="/4 - Infrastructure/">
+        <Project
+                Path="src/Learnify.Courses.Infrastructure.Integrations/Learnify.Courses.Infrastructure.Integrations.csproj"/>
+        <Project Path="src/Learnify.Courses.Infrastructure.Messaging/Learnify.Courses.Infrastructure.Messaging.csproj"/>
+        <Project
+                Path="src/Learnify.Courses.Infrastructure.Persistence/Learnify.Courses.Infrastructure.Persistence.csproj"/>
+        <Project Path="src/Learnify.Courses.Infrastructure.Storaging/Learnify.Courses.Infrastructure.Storaging.csproj"/>
+    </Folder>
+    <Folder Name="/5 - Tests/">
+        <Project Path="tests/Learnify.Courses.IntegrationTests/Learnify.Courses.IntegrationTests.csproj"/>
+        <Project Path="tests/Learnify.Courses.UnitTests/Learnify.Courses.UnitTests.csproj"/>
+    </Folder>
+    <Folder Name="/Solution Items/">
+        <File Path="../../.github/workflows/courses-ci.yaml"/>
+        <File Path="../../infra/docker-compose-dev.yml"/>
+        <File Path="Makefile"/>
+    </Folder>
+</Solution>

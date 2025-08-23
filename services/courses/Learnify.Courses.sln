@@ -29,6 +29,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		Makefile = Makefile
 		..\..\infra\docker-compose-dev.yml = ..\..\infra\docker-compose-dev.yml
+		..\..\.github\workflows\courses-ci.yaml = ..\..\.github\workflows\courses-ci.yaml
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Learnify.Courses.Workers.Outbox", "src\Learnify.Courses.Workers.Outbox\Learnify.Courses.Workers.Outbox.csproj", "{DC4CF2A6-9A84-4202-8BEF-8A3C40483E2C}"
