@@ -22,5 +22,6 @@
   <Folder Name="/Solution Items/">
     <File Path="Makefile" />
     <File Path="..\..\infra\docker-compose-dev.yml" />
+    <File Path="..\..\.github\workflows\video-processing-ci.yaml" />
   </Folder>
 </Solution>

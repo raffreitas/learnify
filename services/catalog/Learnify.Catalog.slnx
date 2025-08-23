@@ -1,0 +1,19 @@
+<Solution>
+  <Folder Name="/0 - Libs/">
+    <Project Path="../../libs/Learnify.Contracts/Learnify.Contracts.csproj" />
+    <Project Path="../../libs/Learnify.Messaging/Learnify.Messaging.csproj" />
+  </Folder>
+  <Folder Name="/1 - Presentation/">
+    <Project Path="src/Learnify.Catalog.Sync.Courses/Learnify.Catalog.Sync.Courses.csproj" />
+  </Folder>
+  <Folder Name="/2 - Application/">
+    <Project Path="src/Learnify.Catalog.Application/Learnify.Catalog.Application.csproj" />
+  </Folder>
+  <Folder Name="/3 - Domain/">
+    <Project Path="src/Learnify.Catalog.Domain/Learnify.Catalog.Domain.csproj" />
+  </Folder>
+  <Folder Name="/4 - Infrastructure/">
+    <Project Path="src/Learnify.Catalog.Infrastructure/Learnify.Catalog.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/5 - Tests/" />
+</Solution>

@@ -6,7 +6,6 @@ public sealed class CreateLessonModel
 {
     public required string Title { get; init; }
     public required string Description { get; init; }
-    public required string VideoUrl { get; init; }
     public required int Order { get; init; }
     public required bool IsPublic { get; init; }
 
@@ -16,7 +15,6 @@ public sealed class CreateLessonModel
         ModuleId = moduleId,
         Title = Title,
         Description = Description,
-        VideoUrl = VideoUrl,
         Order = Order,
         IsPublic = IsPublic
     };
