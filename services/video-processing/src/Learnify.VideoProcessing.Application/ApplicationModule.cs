@@ -1,4 +1,5 @@
-﻿using Learnify.VideoProcessing.Application.Videos.Services;
+﻿using Learnify.VideoProcessing.Application.Videos.Commands.CreateVideo;
+using Learnify.VideoProcessing.Application.Videos.Services;
 using Learnify.VideoProcessing.Application.Videos.Services.Abstractions;
 
 using Microsoft.Extensions.DependencyInjection;
@@ -17,5 +18,6 @@ public static class ApplicationModule
     private static void AddVideosModule(this IServiceCollection services)
     {
         services.AddScoped<IUploadService, UploadService>();
+        services.AddScoped<ICreateVideoCommandHandler, CreateVideoCommandHandler>();
     }
 }

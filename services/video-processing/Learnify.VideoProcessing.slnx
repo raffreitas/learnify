@@ -13,9 +13,14 @@
     <Project Path="src\Learnify.VideoProcessing.Domain\Learnify.VideoProcessing.Domain.csproj" Type="Classic C#" />
   </Folder>
   <Folder Name="/4 - Infrastructure/">
+    <Project Path="src\Learnify.VideoProcessing.Infrastructure.Persistence\Learnify.VideoProcessing.Infrastructure.Persistence.csproj" Type="Classic C#" />
     <Project Path="src\Learnify.VideoProcessing.Infrastructure.Storaging\Learnify.VideoProcessing.Infrastructure.Storaging.csproj" Type="Classic C#" />
   </Folder>
   <Folder Name="/5 - Tests/">
     <Project Path="tests\Learnify.VideoProcessing.UnitTests\Learnify.VideoProcessing.UnitTests.csproj" Type="Classic C#" />
+  </Folder>
+  <Folder Name="/Solution Items/">
+    <File Path="Makefile" />
+    <File Path="..\..\infra\docker-compose-dev.yml" />
   </Folder>
 </Solution>

@@ -19,7 +19,7 @@ public sealed class UploadManagerService(IUploadService uploadService) : UploadM
             ));
 
         if (response.IsFailed)
-            throw new RpcException(new Status(StatusCode.Internal, response.Errors.First().Message));
+            throw new RpcException(new Status(StatusCode.Internal, response.Errors[0].Message));
 
         return new GetPresignedURLResponse
         {

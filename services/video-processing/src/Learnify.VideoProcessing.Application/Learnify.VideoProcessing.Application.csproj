@@ -8,11 +8,16 @@
 
     <ItemGroup>
         <PackageReference Include="FluentResults" Version="4.0.0"/>
+        <PackageReference Include="FluentValidation" Version="12.0.0" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.8"/>
     </ItemGroup>
 
     <ItemGroup>
         <InternalsVisibleTo Include="Learnify.VideoProcessing.UnitTests"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Learnify.VideoProcessing.Domain\Learnify.VideoProcessing.Domain.csproj" />
     </ItemGroup>
 
 </Project>

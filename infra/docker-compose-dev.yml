@@ -1,16 +1,16 @@
 services:
   postgresql:
-    image: bitnami/postgresql:latest
+    image: postgres:latest
     container_name: postgresql
     ports:
       - 5432:5432
     environment:
-      - POSTGRESQL_USERNAME=postgres
-      - POSTGRESQL_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
     volumes:
-      - postgresql_data:/bitnami/postgresql
+      - postgresql_data:/var/lib/postgresql
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
 
   minio:
     image: quay.io/minio/minio:latest
@@ -25,7 +25,7 @@ services:
     volumes:
       - minio_data:/data
     healthcheck:
-      test: ["CMD-SHELL", "mc ready local || exit 1"]
+      test: [ "CMD-SHELL", "mc ready local || exit 1" ]
       interval: 5s
       timeout: 3s
       retries: 30
@@ -52,7 +52,7 @@ services:
       - RABBITMQ_DEFAULT_USER=guest
       - RABBITMQ_DEFAULT_PASS=guest
     healthcheck:
-      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      test: [ "CMD", "rabbitmq-diagnostics", "-q", "ping" ]
       interval: 30s
       timeout: 10s
       retries: 5
