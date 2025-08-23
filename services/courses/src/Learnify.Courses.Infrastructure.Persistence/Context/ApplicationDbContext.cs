@@ -16,7 +16,7 @@ public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> 
     public DbSet<Module> Modules { get; set; }
 
     public DbSet<Category> Categories { get; set; }
-    public DbSet<EventOutbox> EventOutbox { get; set; }
+    public DbSet<OutboxMessage> OutboxMessages { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -29,7 +29,7 @@ public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> 
         modelBuilder.ApplyConfiguration(new LessonConfiguration());
 
         modelBuilder.ApplyConfiguration(new CategoryConfiguration());
-        
+
         modelBuilder.ApplyConfiguration(new InstructorConfiguration());
 
         base.OnModelCreating(modelBuilder);

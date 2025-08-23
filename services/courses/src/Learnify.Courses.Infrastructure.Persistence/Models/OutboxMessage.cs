@@ -1,6 +1,6 @@
 namespace Learnify.Courses.Infrastructure.Persistence.Models;
 
-public sealed record EventOutbox(string Type, string Content, DateTimeOffset OccurredAt)
+public sealed record OutboxMessage(string Type, string Content, DateTimeOffset OccurredAt)
 {
     public Guid Id { get; private set; } = Guid.NewGuid();
     public string Type { get; private set; } = Type;

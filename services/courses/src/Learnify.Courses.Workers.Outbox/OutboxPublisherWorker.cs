@@ -29,7 +29,7 @@ public class OutboxPublisherWorker(
             var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
             var eventMessageMapper = scope.ServiceProvider.GetRequiredService<IIntegrationEventMessageMapper>();
 
-            var pendingEvents = await dbContext.EventOutbox
+            var pendingEvents = await dbContext.OutboxMessages
                 .Where(x => x.ProcessedAt == null)
                 .OrderBy(e => e.OccurredAt)
                 .Take(100)

@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Learnify.Courses.Infrastructure.Storage.Settings;
+namespace Learnify.Courses.Infrastructure.Storaging.Settings;
 
 public sealed record StorageSettings
 {

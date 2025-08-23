@@ -13,6 +13,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Learnify.Courses.Infrastructure.Messaging\Learnify.Courses.Infrastructure.Messaging.csproj" />
-      <ProjectReference Include="..\Learnify.Courses.Infrastructure\Learnify.Courses.Infrastructure.csproj" />
+      <ProjectReference Include="..\Learnify.Courses.Infrastructure.Persistence\Learnify.Courses.Infrastructure.Persistence.csproj" />
+      <ProjectReference Include="..\Learnify.Courses.Infrastructure.Storaging\Learnify.Courses.Infrastructure.Storaging.csproj" />
     </ItemGroup>
 </Project>

@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Learnify.Courses.Infrastructure.Persistence.Configuration;
 
-internal sealed class EventOutboxConfiguration : IEntityTypeConfiguration<EventOutbox>
+internal sealed class EventOutboxConfiguration : IEntityTypeConfiguration<OutboxMessage>
 {
-    public void Configure(EntityTypeBuilder<EventOutbox> builder)
+    public void Configure(EntityTypeBuilder<OutboxMessage> builder)
     {
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Type).IsRequired().HasMaxLength(100);

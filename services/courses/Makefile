@@ -4,9 +4,9 @@
 # Tools and projects
 DOTNET := dotnet
 EF := $(DOTNET) dotnet-ef
-INFRA_PROJ := src/Learnify.Courses.Infrastructure/Learnify.Courses.Infrastructure.csproj
+INFRA_PROJ := src/Learnify.Courses.Infrastructure.Persistence/Learnify.Courses.Infrastructure.Persistence.csproj
 STARTUP_PROJ := src/Learnify.Courses.WebApi/Learnify.Courses.WebApi.csproj
-MIGRATIONS_DIR := Persistence/Migrations
+MIGRATIONS_DIR := Migrations
 
 .PHONY: help tool-restore build clean migrate-add migrate-remove migrate-update migrate-list migrate-script database-drop
 

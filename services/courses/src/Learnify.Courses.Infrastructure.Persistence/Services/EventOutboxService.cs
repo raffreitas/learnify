@@ -14,12 +14,12 @@ internal sealed class EventOutboxService(ApplicationDbContext dbContext) : IEven
     public async Task AddAsync<T>(T integrationEvent, CancellationToken cancellationToken = default)
         where T : IntegrationEvent
     {
-        var outboxEvent = new EventOutbox(
+        var outboxEvent = new OutboxMessage(
             typeof(T).FullName!,
             JsonSerializer.Serialize(integrationEvent),
             integrationEvent.OccurredOn
         );
 
-        await dbContext.EventOutbox.AddAsync(outboxEvent, cancellationToken);
+        await dbContext.OutboxMessages.AddAsync(outboxEvent, cancellationToken);
     }
 }
