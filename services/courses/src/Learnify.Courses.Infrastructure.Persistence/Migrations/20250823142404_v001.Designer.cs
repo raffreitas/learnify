@@ -13,8 +13,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Learnify.Courses.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250819114952_v005")]
-    partial class v005
+    [Migration("20250823142404_v001")]
+    partial class v001
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -179,11 +179,40 @@ namespace Learnify.Courses.Infrastructure.Persistence.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("updated_at");
 
-                    b.Property<string>("VideoUrl")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("character varying(500)")
-                        .HasColumnName("video_url");
+                    b.ComplexProperty<Dictionary<string, object>>("Media", "Learnify.Courses.Domain.Aggregates.Courses.Entities.Lesson.Media#LessonMedia", b1 =>
+                        {
+                            b1.IsRequired();
+
+                            b1.Property<Guid>("AssetId")
+                                .HasColumnType("uuid")
+                                .HasColumnName("media_asset_id");
+
+                            b1.Property<DateTimeOffset>("CreatedAt")
+                                .HasColumnType("timestamp with time zone")
+                                .HasColumnName("media_created_at");
+
+                            b1.Property<TimeSpan>("Duration")
+                                .HasColumnType("interval")
+                                .HasColumnName("media_duration");
+
+                            b1.Property<string>("FailureReason")
+                                .HasColumnType("text")
+                                .HasColumnName("media_failure_reason");
+
+                            b1.Property<Guid>("Id")
+                                .HasColumnType("uuid")
+                                .HasColumnName("media_id");
+
+                            b1.Property<string>("Status")
+                                .IsRequired()
+                                .HasMaxLength(50)
+                                .HasColumnType("character varying(50)")
+                                .HasColumnName("media_status");
+
+                            b1.Property<DateTimeOffset>("UpdatedAt")
+                                .HasColumnType("timestamp with time zone")
+                                .HasColumnName("media_updated_at");
+                        });
 
                     b.HasKey("Id")
                         .HasName("pk_lessons");
@@ -281,7 +310,7 @@ namespace Learnify.Courses.Infrastructure.Persistence.Migrations
                     b.ToTable("instructor", (string)null);
                 });
 
-            modelBuilder.Entity("Learnify.Courses.Infrastructure.Persistence.Models.EventOutbox", b =>
+            modelBuilder.Entity("Learnify.Courses.Infrastructure.Persistence.Models.OutboxMessage", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -312,13 +341,13 @@ namespace Learnify.Courses.Infrastructure.Persistence.Migrations
                         .HasColumnName("type");
 
                     b.HasKey("Id")
-                        .HasName("pk_event_outbox");
+                        .HasName("pk_outbox_messages");
 
                     b.HasIndex("OccurredAt")
                         .IsDescending()
-                        .HasDatabaseName("ix_event_outbox_occurred_at");
+                        .HasDatabaseName("ix_outbox_messages_occurred_at");
 
-                    b.ToTable("event_outbox", (string)null);
+                    b.ToTable("outbox_messages", (string)null);
                 });
 
             modelBuilder.Entity("Learnify.Courses.Domain.Aggregates.Courses.Course", b =>

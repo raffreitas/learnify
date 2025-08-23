@@ -1,7 +1,6 @@
 using Learnify.Courses.Application.Courses.UseCases.CreateCourse;
 using Learnify.Courses.Application.Courses.UseCases.CreateModule;
 using Learnify.Courses.Application.Courses.UseCases.CreateLesson;
-using Learnify.Courses.Application.Courses.UseCases.GetCourseById;
 using Learnify.Courses.Application.Courses.UseCases.PublishCourse;
 using Learnify.Courses.Application.Courses.UseCases.UpdateCourse;
 using Learnify.Courses.Application.Courses.UseCases.UpdateLesson;
@@ -32,7 +31,7 @@ public class CoursesController : ControllerBase
     {
         var result = await useCase.ExecuteAsync(request, cancellationToken);
         return result.IsSuccess
-            ? CreatedAtAction(nameof(GetCourseById), new { id = result.Value.CourseId }, result.Value)
+            ? Created("", new { id = result.Value.CourseId })
             : HandleProblem(result);
     }
 
@@ -50,19 +49,6 @@ public class CoursesController : ControllerBase
     {
         var result = await useCase.ExecuteAsync(model.ToRequest(id), cancellationToken);
         return result.IsSuccess ? NoContent() : HandleProblem(result);
-    }
-
-    [HttpGet("{id:guid}")]
-    [ProducesResponseType<GetCourseByIdResponse>(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> GetCourseById(
-        [FromRoute] Guid id,
-        [FromServices] IGetCourseByIdUseCase useCase,
-        CancellationToken cancellationToken
-    )
-    {
-        var result = await useCase.ExecuteAsync(new GetCourseByIdRequest { Id = id }, cancellationToken);
-        return result.IsSuccess ? Ok(result.Value) : HandleProblem(result);
     }
 
     [HttpPatch("{id:guid}/publish")]

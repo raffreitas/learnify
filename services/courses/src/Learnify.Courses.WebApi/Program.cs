@@ -1,5 +1,6 @@
 using Learnify.Courses.Application;
-using Learnify.Courses.Infrastructure;
+using Learnify.Courses.Infrastructure.Persistence;
+using Learnify.Courses.Infrastructure.Storaging;
 
 using Scalar.AspNetCore;
 
@@ -7,7 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services
     .AddApplicationModule()
-    .AddInfrastructureModule(builder.Configuration);
+    .AddPersistenceModule(builder.Configuration)
+    .AddStoragingModule(builder.Configuration);
 
 builder.Services.AddControllers();
 
@@ -34,5 +36,7 @@ await app.RunAsync();
 
 namespace Learnify.Courses.WebApi
 {
-    public abstract partial class Program { }
+    public abstract partial class Program
+    {
+    }
 }

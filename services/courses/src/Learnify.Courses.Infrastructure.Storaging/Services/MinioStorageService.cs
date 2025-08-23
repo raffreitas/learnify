@@ -1,12 +1,12 @@
 using Learnify.Courses.Application.Abstractions.Storage;
-using Learnify.Courses.Infrastructure.Storage.Settings;
+using Learnify.Courses.Infrastructure.Storaging.Settings;
 
 using Microsoft.Extensions.Options;
 
 using Minio;
 using Minio.DataModel.Args;
 
-namespace Learnify.Courses.Infrastructure.Storage.Services;
+namespace Learnify.Courses.Infrastructure.Storaging.Services;
 
 internal sealed class MinioStorageService(IMinioClient minioClient, IOptions<StorageSettings> options) : IStorageService
 {

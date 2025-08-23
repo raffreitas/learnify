@@ -13,12 +13,13 @@
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Scalar.AspNetCore" Version="2.6.8"/>
+        <PackageReference Include="Scalar.AspNetCore" Version="2.7.0" />
     </ItemGroup>
 
     <ItemGroup>
         <ProjectReference Include="..\Learnify.Courses.Application\Learnify.Courses.Application.csproj"/>
-        <ProjectReference Include="..\Learnify.Courses.Infrastructure\Learnify.Courses.Infrastructure.csproj" />
+        <ProjectReference Include="..\Learnify.Courses.Infrastructure.Persistence\Learnify.Courses.Infrastructure.Persistence.csproj" />
+        <ProjectReference Include="..\Learnify.Courses.Infrastructure.Storaging\Learnify.Courses.Infrastructure.Storaging.csproj" />
     </ItemGroup>
 
 </Project>
